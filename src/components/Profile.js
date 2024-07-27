@@ -14,7 +14,7 @@ function Profile() {
   useEffect(() => {
     // Fetch user data from the backend
     axios
-      .get(`http://localhost:4001/user/${username}`)
+      .get(`https://pehcharm-backend.onrender.com/user/${username}`)
       .then((response) => {
         setUserData(response.data);
         setLoading(false);
