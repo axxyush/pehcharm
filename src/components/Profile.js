@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import logo from "../images/pehcharm-logo.png";
+import Repo from "./Repo";
 
 function Profile() {
-  const { username } = useParams(); // Extracting the username from the URL
+  const { username } = useParams();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [repos, setRepos] = useState([]);
 
   useEffect(() => {
     // Fetch user data from the backend
@@ -22,6 +24,21 @@ function Profile() {
         setLoading(false);
       });
   }, [username]);
+
+  useEffect(() => {
+    if (userData && userData.github) {
+      const github_username = userData.github.split("/").pop();
+
+      axios
+        .get(`https://api.github.com/users/${github_username}/repos`)
+        .then((response) => {
+          setRepos(response.data);
+        })
+        .catch((err) => {
+          console.error("Error fetching GitHub repos:", err);
+        });
+    }
+  }, [userData]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -230,7 +247,30 @@ function Profile() {
             ) : (
               ""
             )}
-            {/***************************************8 */}
+            {/*GitHub Repos*/}
+            {userData.github && repos.length > 0 && (
+              <div
+                style={{ height: "fit-content", marginBottom: "40px" }}
+                className="container"
+              >
+                <div className="card-experience">
+                  <h2 className="text-white">My GitHub Repos</h2>
+                  <div className="d-flex flex-wrap">
+                    {repos.map((repo) => (
+                      <div key={repo.id} className="repos ">
+                        <Repo
+                          html_url={repo.html_url}
+                          name={repo.name}
+                          description={repo.description}
+                          visibility={repo.private ? "private" : "public"}
+                          pushed_at={repo.pushed_at.split("T")[0]}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </>
       ) : (
