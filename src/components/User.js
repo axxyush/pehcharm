@@ -21,6 +21,11 @@ function User() {
       instagram: authUser.instagram || "",
       x: authUser.x || "",
       github: authUser.github || "",
+      jobtitle: authUser.jobtitle || "",
+      company: authUser.company || "",
+      location: authUser.location || "",
+      jobdescription: authUser.jobdescription || "",
+      otherexperiences: authUser.otherexperiences || "",
     },
   });
   const onSubmit = async (data) => {
@@ -39,6 +44,11 @@ function User() {
         instagram: data.instagram,
         x: data.x,
         github: data.github,
+        jobtitle: data.jobtitle,
+        company: data.company,
+        location: data.location,
+        jobdescription: data.jobdescription,
+        otherexperiences: data.otherexperiences,
       };
 
       const response = await axios.post(
@@ -104,6 +114,58 @@ function User() {
               name="about"
               className="input"
               {...register("about")}
+              rows={5}
+            />
+            <input value="Update" type="submit" className="login-button" />
+          </form>
+        </div>
+        {/* Update Experience Section ******************************/}
+        <div className="container-form">
+          <div className="heading">Update Experience</div>
+          <form onSubmit={handleSubmit(onSubmit)} className="form">
+            <p>Current Job Title:</p>
+            <input
+              placeholder="Current Job Title"
+              id="jobtitle"
+              name="jobtitle"
+              type="text"
+              className="input"
+              {...register("jobtitle")}
+            />
+            <p>Company Name:</p>
+            <input
+              placeholder="Company Name"
+              id="company"
+              name="company"
+              type="text"
+              className="input"
+              {...register("company")}
+            />
+            <p>Location:</p>
+            <input
+              placeholder="Location"
+              id="location"
+              name="location"
+              type="text"
+              className="input"
+              {...register("location")}
+            />
+            <p>Job Description:</p>
+            <textarea
+              placeholder="Job Description"
+              id="jobdescription"
+              name="jobdescription"
+              className="input"
+              {...register("jobdescription")}
+              rows={5}
+            />
+            <p>Explain other relevant Experiences briefly:</p>
+            <textarea
+              placeholder="Other Experiences"
+              id="otherexperiences"
+              name="otherexperiences"
+              className="input"
+              {...register("otherexperiences")}
               rows={5}
             />
             <input value="Update" type="submit" className="login-button" />
@@ -186,14 +248,7 @@ function User() {
               className="input"
               {...register("github")}
             />
-            <p>Link to X:</p>
-            <input
-              placeholder="X"
-              id="x"
-              name="x"
-              className="input"
-              {...register("x")}
-            />
+
             <input value="Update" type="submit" className="login-button" />
           </form>
         </div>

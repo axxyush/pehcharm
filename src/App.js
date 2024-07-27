@@ -12,29 +12,41 @@ import User from "./components/User";
 import Signup from "./components/Signup";
 import AuthProvider, { useAuth } from "./context/AuthProvider";
 import { Toaster } from "react-hot-toast";
+import Profile from "./components/Profile";
 
 function App() {
   return (
-    <>
-      <AuthProvider>
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/user" element={<ProtectedRoute component={User} />} />
-            <Route path="/signup" element={<Signup />} />
-          </Routes>
-          <Footer />
-        </Router>
+    <AuthProvider>
+      <Router>
+        <MainLayout />
         <Toaster />
-      </AuthProvider>
+      </Router>
+    </AuthProvider>
+  );
+}
+
+function MainLayout() {
+  const [authUser] = useAuth();
+
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/user"
+          element={<ProtectedRoute component={User} authUser={authUser} />}
+        />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/:username" element={<Profile />} />
+      </Routes>
+      <Footer />
     </>
   );
 }
-function ProtectedRoute({ component: Component }) {
-  const [authUser] = useAuth();
 
-  return authUser ? <User /> : <Navigate to="/signup" />;
+function ProtectedRoute({ component: Component, authUser }) {
+  return authUser ? <Component /> : <Navigate to="/signup" />;
 }
 
 export default App;

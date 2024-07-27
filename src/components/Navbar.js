@@ -60,12 +60,13 @@ function Navbar() {
                   aria-current="page"
                   to="/"
                 >
-                  About
+                  Home
                 </Link>
               </li>
+
               <li
                 className={`nav-item ${
-                  location.pathname === "/course" ? "active" : ""
+                  location.pathname === "/user" ? "active" : ""
                 }  `}
               >
                 <Link className="nav-link" to="/user">
@@ -78,9 +79,13 @@ function Navbar() {
                   location.pathname === "/contact" ? "active" : ""
                 }  `}
               >
-                <Link className="nav-link" to="/">
-                  Profile
-                </Link>
+                {authUser ? (
+                  <Link className="nav-link" to={`/${authUser?.username}`}>
+                    Profile
+                  </Link>
+                ) : (
+                  ""
+                )}
               </li>
             </ul>
 

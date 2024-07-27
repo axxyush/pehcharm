@@ -69,6 +69,11 @@ export const login = async (req, res) => {
           instagram: user.instagram,
           x: user.x,
           github: user.github,
+          jobtitle: user.jobtitle,
+          company: user.company,
+          location: user.location,
+          jobdescription: user.jobdescription,
+          otherexperiences: user.otherexperiences,
           _id: user._id,
         },
       });
@@ -106,6 +111,11 @@ export const update = async (req, res) => {
         instagram: user.instagram,
         x: user.x,
         github: user.github,
+        jobtitle: user.jobtitle,
+        company: user.company,
+        location: user.location,
+        jobdescription: user.jobdescription,
+        otherexperiences: user.otherexperiences,
         _id: user._id,
       },
     });

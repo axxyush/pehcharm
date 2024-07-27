@@ -46,6 +46,21 @@ const userSchema = new mongoose.Schema({
   x: {
     type: String,
   },
+  jobtitle: {
+    type: String,
+  },
+  company: {
+    type: String,
+  },
+  location: {
+    type: String,
+  },
+  jobdescription: {
+    type: String,
+  },
+  otherexperiences: {
+    type: String,
+  },
 });
 
 const User = mongoose.model("User", userSchema);
