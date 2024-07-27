@@ -5,7 +5,8 @@ import cors from "cors";
 import userRoute from "./route/user.route.js";
 
 const PORT = 4001;
-const URI = "mongodb://localhost:27017/pehcharm";
+const URI =
+  "mongodb+srv://ayushsrivastava192004:pehcharm123@pehcharm.11jwnhb.mongodb.net/?retryWrites=true&w=majority&appName=Pehcharm";
 
 app.use(cors());
 app.use(express.json());

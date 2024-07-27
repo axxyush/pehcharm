@@ -162,6 +162,7 @@ function Profile() {
                     height={400}
                     loading="lazy"
                   />
+
                   {/* <div className="one-div"></div> */}
                 </div>
                 <div className=" col-lg-7">
@@ -224,7 +225,6 @@ function Profile() {
             ) : (
               ""
             )}
-
             {/* Education **************************************8 */}
             {userData.clgname ? (
               <div
@@ -271,6 +271,14 @@ function Profile() {
                 </div>
               </div>
             )}
+            {/* 3D Model */}
+            <div className="container m-3">
+              <script
+                type="module"
+                src="https://unpkg.com/@splinetool/viewer@1.9.3/build/spline-viewer.js"
+              ></script>
+              <spline-viewer url="https://prod.spline.design/VDZ9QT0aB6BHadZV/scene.splinecode"></spline-viewer>
+            </div>
           </div>
         </>
       ) : (

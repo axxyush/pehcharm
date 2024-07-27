@@ -216,7 +216,7 @@ function User() {
           </form>
         </div>
 
-        {/* ***************************************************** */}
+        {/* Socials***************************************************** */}
 
         <div className="container-form">
           <div className="heading">Update Socials</div>
