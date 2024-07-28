@@ -92,7 +92,6 @@ function User() {
             >
               https://pehcharm.vercel.app/{authUser.username}
             </a>
-            <div></div>
           </div>
         </div>
 

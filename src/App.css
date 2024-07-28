@@ -711,8 +711,7 @@ ul {
 
 /* ***************************************** */
 .card-link {
-  width: 100%;
-  max-width: 290px;
+  width: fit-content;
   height: 90px;
   background: #353535;
   border-radius: 20px;
@@ -765,9 +764,63 @@ ul {
   font-weight: lighter;
   text-decoration: none;
   color: white;
+  margin-right: 10px;
 }
 
 /* ***************************************** */
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(
+    135deg,
+    #333,
+    #111
+  ); /* Dark gradient background */
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 20px #8839ff; /* Glowing effect */
+  padding: 10px 15px;
+}
+
+.search-icon {
+  color: #fff; /* White color for the search icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 10px;
+}
+
+.search-bar input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 16px;
+  padding: 5px 10px;
+  flex: 1;
+  /* min-width: 200px; */
+}
+
+.search-bar input::placeholder {
+  color: #bbb; /* Lighter placeholder text color */
+}
+
+.filter-button {
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  cursor: pointer;
+  color: #fff; /* White color for the filter icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* ***************************************** */
 

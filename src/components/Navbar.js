@@ -4,11 +4,13 @@ import pehcharm from "../images/pehcharm-logo.png";
 import Login from "./Login";
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthProvider";
+import Search from "./Search";
 
 function Navbar() {
   const [authUser] = useAuth();
   let location = useLocation();
   const [sticky, setSticky] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
@@ -88,7 +90,7 @@ function Navbar() {
                 )}
               </li>
             </ul>
-
+            <Search />
             {authUser ? (
               <Logout />
             ) : (

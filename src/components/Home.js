@@ -38,7 +38,7 @@ function Home() {
             </h1>
             <p className="lead">
               Pehcharm is an application where you can build you own portfolio
-              website in extremly simple steps. Login, enter your profile
+              website in extremely simple steps. Login, enter your profile
               details and that's it! It's that simple.
             </p>
             <div className="d-flex flex-row flex-wrap  gap-2 d-md-flex justify-content-md-start">
