@@ -18,7 +18,6 @@ function Login() {
     await axios
       .post("https://pehcharm-backend.onrender.com/user/login", userInfo)
       .then((res) => {
-        console.log(res.data);
         if (res.data) {
           toast.success("Login successful!");
           setTimeout(() => {
@@ -33,6 +32,7 @@ function Login() {
         }
       });
   };
+
   return (
     <>
       <div

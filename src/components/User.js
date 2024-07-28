@@ -19,16 +19,18 @@ function User() {
       activities: authUser.activities || "",
       linkedin: authUser.linkedin || "",
       instagram: authUser.instagram || "",
-      x: authUser.x || "",
       github: authUser.github || "",
       jobtitle: authUser.jobtitle || "",
       company: authUser.company || "",
       location: authUser.location || "",
       jobdescription: authUser.jobdescription || "",
       otherexperiences: authUser.otherexperiences || "",
+      skills: authUser.skills || "",
+      honors: authUser.honors || "",
     },
   });
   const onSubmit = async (data) => {
+    console.log(data);
     try {
       const userInfo = {
         email: data.email,
@@ -42,13 +44,14 @@ function User() {
         activities: data.activities,
         linkedin: data.linkedin,
         instagram: data.instagram,
-        x: data.x,
         github: data.github,
         jobtitle: data.jobtitle,
         company: data.company,
         location: data.location,
         jobdescription: data.jobdescription,
         otherexperiences: data.otherexperiences,
+        honors: data.honors,
+        skills: data.skills,
       };
 
       const response = await axios.post(
@@ -77,6 +80,22 @@ function User() {
   return (
     <>
       <div className="form-container">
+        <div className="card-link">
+          <div className="img" />
+          <div className="textBox">
+            <div className="textContent">
+              <p className="h1">This is the link to your portfolio</p>
+            </div>
+            <a
+              href={`https://pehcharm.vercel.app/${authUser.username}`}
+              className="a"
+            >
+              https://pehcharm.vercel.app/{authUser.username}
+            </a>
+            <div></div>
+          </div>
+        </div>
+
         <div className="container-form">
           <div className="heading">Update Profile</div>
           <form onSubmit={handleSubmit(onSubmit)} className="form">
@@ -252,6 +271,33 @@ function User() {
             <input value="Update" type="submit" className="login-button" />
           </form>
         </div>
+
+        {/* Update Education Section ******************************/}
+        <div className="container-form">
+          <div className="heading">Update Other Information</div>
+          <form onSubmit={handleSubmit(onSubmit)} className="form">
+            <p>Briefly explain your skills:</p>
+            <textarea
+              placeholder="Skills"
+              id="skills"
+              name="skills"
+              className="input"
+              {...register("skills")}
+              rows={5}
+            />
+            <p>Briefly explain your Honors & Awards:</p>
+            <textarea
+              placeholder="Honors & Awards"
+              id="honors"
+              name="honors"
+              className="input"
+              {...register("honors")}
+              rows={5}
+            />
+            <input value="Update" type="submit" className="login-button" />
+          </form>
+        </div>
+        {/* **************************************** */}
       </div>
     </>
   );

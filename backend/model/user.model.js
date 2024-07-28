@@ -61,6 +61,12 @@ const userSchema = new mongoose.Schema({
   otherexperiences: {
     type: String,
   },
+  skills: {
+    type: String,
+  },
+  honors: {
+    type: String,
+  },
 });
 
 const User = mongoose.model("User", userSchema);

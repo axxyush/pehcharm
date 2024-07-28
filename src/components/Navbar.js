@@ -70,7 +70,7 @@ function Navbar() {
                 }  `}
               >
                 <Link className="nav-link" to="/user">
-                  User
+                  Account
                 </Link>
               </li>
 
@@ -81,7 +81,7 @@ function Navbar() {
               >
                 {authUser ? (
                   <Link className="nav-link" to={`/${authUser?.username}`}>
-                    Profile
+                    Portfolio
                   </Link>
                 ) : (
                   ""

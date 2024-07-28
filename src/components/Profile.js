@@ -40,11 +40,19 @@ function Profile() {
     }
   }, [userData]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="home">
+        <div class="spinner-border text-dark" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
+      <div></div>
       {userData ? (
         <>
           {/* Modal */}

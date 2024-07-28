@@ -41,7 +41,7 @@ function Home() {
               website in extremly simple steps. Login, enter your profile
               details and that's it! It's that simple.
             </p>
-            <div className="d-flex flex-row  gap-2 d-md-flex justify-content-md-start">
+            <div className="d-flex flex-row flex-wrap  gap-2 d-md-flex justify-content-md-start">
               <button
                 className=" btn-lg m-3 px-4 me-md-2 login-btn"
                 data-bs-toggle={authUser ? "" : "modal"}
