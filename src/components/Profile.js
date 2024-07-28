@@ -255,6 +255,42 @@ function Profile() {
             ) : (
               ""
             )}
+            {/* Honors & Awards **************************************8 */}
+            {userData.honors ? (
+              <div
+                style={{ height: "fit-content", marginBottom: "40px" }}
+                className="container"
+              >
+                <div className="card-experience">
+                  <h2 className="text-white">Honors & Awards</h2>
+                  <div className="card__border" />
+                  <div className="card_title__container">
+                    <hr className="line" />
+                    <p className="card-description">{userData.honors}</p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+            {/* Skills **************************************8 */}
+            {userData.skills ? (
+              <div
+                style={{ height: "fit-content", marginBottom: "40px" }}
+                className="container"
+              >
+                <div className="card-experience">
+                  <h2 className="text-white">My Skills</h2>
+                  <div className="card__border" />
+                  <div className="card_title__container">
+                    <hr className="line" />
+                    <p className="card-description">{userData.skills}</p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
             {/*GitHub Repos*/}
             {userData.github && repos.length > 0 && (
               <div
