@@ -823,6 +823,26 @@ ul {
 }
 
 /* ***************************************** */
+.instructions {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #494444;
+  border-radius: 30px;
+  margin-top: 10px;
+  color: rgb(174, 173, 173);
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+}
+
+.instructions img {
+  width: 80%;
+  border: 2px solid black;
+  margin: 30px;
+  border-radius: 20px;
+}
 
 /* ***************************************** */
 
