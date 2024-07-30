@@ -95,8 +95,8 @@ function Navbar() {
               <Logout />
             ) : (
               <button
-                type="button"
-                className="btn btn-primary m-2"
+                type="button "
+                className="btn btn-success m-2"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
               >
