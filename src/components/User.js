@@ -15,7 +15,7 @@ function User() {
       username: authUser.username || "",
       about: authUser.about || "",
       education: authUser.education || [
-        { clgname: "", degree: "", gpa: "", activities: "" },
+        { clgname: "", degree: "", year: "", gpa: "", activities: "" },
       ],
       linkedin: authUser.linkedin || "",
       instagram: authUser.instagram || "",
@@ -203,6 +203,15 @@ function User() {
                   type="text"
                   className="input"
                   {...register(`education[${index}].degree`)}
+                />
+                <p>Gradutaion Year:</p>
+                <input
+                  placeholder="Year"
+                  id={`education[${index}].year`}
+                  name={`education[${index}].year`}
+                  type="text"
+                  className="input"
+                  {...register(`education[${index}].year`)}
                 />
                 <p>GPA:</p>
                 <input

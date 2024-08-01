@@ -33,9 +33,14 @@ export function Education(props) {
         <div className="box">
           <span className="title my-4 text-wrap">{props.name}</span>
           <div>
+            <span className="my-2">Graduation Year: </span>{" "}
+            <span>{props.year}</span>
             <strong className="my-2">GPA: {props.gpa}</strong>
             <span className="my-2">Degree: </span> <span>{props.degree}</span>
-            <p className="my-2">Description: {props.description}</p>
+            <hr className="line" />
+            <p className="my-2">
+              <b>Description:</b> {props.description}
+            </p>
           </div>
         </div>
       </div>

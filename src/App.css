@@ -384,7 +384,7 @@ body {
 .card-experience {
   --white: #f0f0f0; /* Light gray for text or elements */
   --black: #2c2c2c; /* Dark gray for text or borders */
-  --paragraph: #a8a8b8; /* Lighter gray for less emphasized text */
+  --paragraph: #797988; /* Lighter gray for less emphasized text */
   --line: #8989a2; /* Border or line color matching the theme */
   --primary: #8c8cac; /* Primary color for buttons or highlights */
 
@@ -399,9 +399,9 @@ body {
   background-image: radial-gradient(at 88% 40%, #2c2c3a 0px, transparent 85%),
     radial-gradient(at 49% 30%, #2c2c3a 0px, transparent 85%),
     radial-gradient(at 14% 26%, #2c2c3a 0px, transparent 85%),
-    radial-gradient(at 0% 64%, #8c8cac 0px, transparent 85%),
-    radial-gradient(at 41% 94%, #9c9cc7 0px, transparent 85%),
-    radial-gradient(at 100% 99%, #797994 0px, transparent 85%);
+    radial-gradient(at 0% 64%, #272731 0px, transparent 85%),
+    radial-gradient(at 41% 94%, #8080a2 0px, transparent 85%),
+    radial-gradient(at 100% 99%, #696983 0px, transparent 85%);
 
   border-radius: 1rem;
   box-shadow: 0px -16px 24px 0px rgba(255, 255, 255, 0.25) inset;

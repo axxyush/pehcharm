@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const educationSchema = new mongoose.Schema({
   clgname: String,
   degree: String,
+  year: String,
   gpa: String,
   activities: String,
 });

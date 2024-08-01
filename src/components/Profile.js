@@ -144,8 +144,9 @@ function Profile() {
                       <div key={clg._id} className="repos ">
                         <Education
                           name={clg.clgname}
-                          gpa={clg.gpa}
                           degree={clg.degree}
+                          year={clg.year}
+                          gpa={clg.gpa}
                           description={clg.activities}
                         />
                       </div>
