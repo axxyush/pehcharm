@@ -1,22 +1,22 @@
 import React from "react";
 import { useAuth } from "../context/AuthProvider";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 
 function User() {
   const [authUser] = useAuth();
 
-  const { register, handleSubmit } = useForm({
+  // Initialize form with default values, including education as an array
+  const { register, handleSubmit, control, setValue } = useForm({
     defaultValues: {
       email: authUser.email || "",
       name: authUser.name || "",
       username: authUser.username || "",
       about: authUser.about || "",
-      clgname: authUser.clgname || "",
-      degree: authUser.degree || "",
-      gpa: authUser.gpa || "",
-      activities: authUser.activities || "",
+      education: authUser.education || [
+        { clgname: "", degree: "", gpa: "", activities: "" },
+      ],
       linkedin: authUser.linkedin || "",
       instagram: authUser.instagram || "",
       github: authUser.github || "",
@@ -29,38 +29,20 @@ function User() {
       honors: authUser.honors || "",
     },
   });
-  const onSubmit = async (data) => {
-    console.log(data);
-    try {
-      const userInfo = {
-        email: data.email,
-        password: data.password,
-        name: data.name,
-        username: data.username,
-        about: data.about,
-        clgname: data.clgname,
-        degree: data.degree,
-        gpa: data.gpa,
-        activities: data.activities,
-        linkedin: data.linkedin,
-        instagram: data.instagram,
-        github: data.github,
-        jobtitle: data.jobtitle,
-        company: data.company,
-        location: data.location,
-        jobdescription: data.jobdescription,
-        otherexperiences: data.otherexperiences,
-        honors: data.honors,
-        skills: data.skills,
-      };
 
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "education",
+  });
+
+  const onSubmit = async (data) => {
+    try {
       const response = await axios.post(
         "https://pehcharm-backend.onrender.com/user/update",
-        userInfo
+        data
       );
 
       if (response.data) {
-        console.log(response.data);
         toast.success("User information updated successfully!");
         localStorage.setItem("Users", JSON.stringify(response.data.user));
         setTimeout(() => {
@@ -80,6 +62,7 @@ function User() {
   return (
     <>
       <div className="form-container">
+        {/* Portfolio Link */}
         <div className="card-link">
           <div className="img" />
           <div className="textBox">
@@ -95,6 +78,7 @@ function User() {
           </div>
         </div>
 
+        {/* Update Profile Section */}
         <div className="container-form">
           <div className="heading">Update Profile</div>
           <form onSubmit={handleSubmit(onSubmit)} className="form">
@@ -137,7 +121,8 @@ function User() {
             <input value="Update" type="submit" className="login-button" />
           </form>
         </div>
-        {/* Update Experience Section ******************************/}
+
+        {/* Update Experience Section */}
         <div className="container-form">
           <div className="heading">Update Experience</div>
           <form onSubmit={handleSubmit(onSubmit)} className="form">
@@ -190,52 +175,71 @@ function User() {
           </form>
         </div>
 
-        {/* Update Education Section ******************************/}
+        {/* Update Education Section */}
         <div className="container-form">
           <div className="heading">Update Education</div>
           <form onSubmit={handleSubmit(onSubmit)} className="form">
-            <p>College Name:</p>
-            <input
-              placeholder="College name"
-              id="clgname"
-              name="clgname"
-              type="text"
-              className="input"
-              {...register("clgname")}
-            />
-            <p>Degree:</p>
-            <input
-              placeholder="Degree"
-              id="degree"
-              name="degree"
-              type="text"
-              className="input"
-              {...register("degree")}
-            />
-            <p>GPA:</p>
-            <input
-              placeholder="GPA"
-              id="gpa"
-              name="gpa"
-              type="text"
-              className="input"
-              {...register("gpa")}
-            />
-            <p>Activities:</p>
-            <textarea
-              placeholder="Activities"
-              id="activities"
-              name="activities"
-              className="input"
-              {...register("activities")}
-              rows={5}
-            />
+            {fields.map((field, index) => (
+              <div key={field.id} className="education-entry">
+                <p>College Name:</p>
+                <input
+                  placeholder="College name"
+                  id={`education[${index}].clgname`}
+                  name={`education[${index}].clgname`}
+                  type="text"
+                  className="input"
+                  {...register(`education[${index}].clgname`)}
+                />
+                <p>Degree:</p>
+                <input
+                  placeholder="Degree"
+                  id={`education[${index}].degree`}
+                  name={`education[${index}].degree`}
+                  type="text"
+                  className="input"
+                  {...register(`education[${index}].degree`)}
+                />
+                <p>GPA:</p>
+                <input
+                  placeholder="GPA"
+                  id={`education[${index}].gpa`}
+                  name={`education[${index}].gpa`}
+                  type="text"
+                  className="input"
+                  {...register(`education[${index}].gpa`)}
+                />
+                <p>Activities:</p>
+                <textarea
+                  placeholder="Activities"
+                  id={`education[${index}].activities`}
+                  name={`education[${index}].activities`}
+                  className="input"
+                  {...register(`education[${index}].activities`)}
+                  rows={5}
+                />
+                <button
+                  className="login-btn m-2"
+                  type="button"
+                  onClick={() => remove(index)}
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              className="login-btn m-2"
+              onClick={() =>
+                append({ clgname: "", degree: "", gpa: "", activities: "" })
+              }
+            >
+              Add Education
+            </button>
             <input value="Update" type="submit" className="login-button" />
           </form>
         </div>
 
-        {/* Socials***************************************************** */}
-
+        {/* Update Socials Section */}
         <div className="container-form">
           <div className="heading">Update Socials</div>
           <form onSubmit={handleSubmit(onSubmit)} className="form">
@@ -266,12 +270,11 @@ function User() {
               className="input"
               {...register("github")}
             />
-
             <input value="Update" type="submit" className="login-button" />
           </form>
         </div>
 
-        {/* Update Education Section ******************************/}
+        {/* Update Other Information Section */}
         <div className="container-form">
           <div className="heading">Update Other Information</div>
           <form onSubmit={handleSubmit(onSubmit)} className="form">
@@ -296,7 +299,6 @@ function User() {
             <input value="Update" type="submit" className="login-button" />
           </form>
         </div>
-        {/* **************************************** */}
       </div>
     </>
   );

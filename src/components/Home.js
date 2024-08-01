@@ -49,26 +49,30 @@ function Home() {
               website in extremely simple steps. Login, enter your profile
               details and that's it! It's that simple.
             </p>
-            <div className="d-flex flex-row flex-wrap  gap-2 d-md-flex justify-content-md-start">
-              <button
-                className=" btn-lg m-3 px-4 me-md-2 login-btn"
-                data-bs-toggle={authUser ? "" : "modal"}
-                data-bs-target={authUser ? "" : "#exampleModal"}
-                onClick={handleLogin}
-              >
-                Log in
-              </button>
-              <button
-                onClick={handleSignUp}
-                className="btn-lg m-3 px-4 me-md-2 login-btn"
-              >
-                Sign up
-              </button>
-            </div>
+            {authUser ? (
+              ""
+            ) : (
+              <div className="d-flex flex-row flex-wrap  gap-2 d-md-flex justify-content-md-start">
+                <button
+                  className=" btn-lg m-3 px-4 me-md-2 login-btn"
+                  data-bs-toggle={authUser ? "" : "modal"}
+                  data-bs-target={authUser ? "" : "#exampleModal"}
+                  onClick={handleLogin}
+                >
+                  Log in
+                </button>
+                <button
+                  onClick={handleSignUp}
+                  className="btn-lg m-3 px-4 me-md-2 login-btn"
+                >
+                  Sign up
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
-      <div className="mx-3 instructions">
+      <div className="mx-4 instructions">
         <h2 className="display-5 fw-bold lh-1 mb-3">
           <u>Instructions</u>
         </h2>
