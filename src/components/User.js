@@ -5,10 +5,10 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 function User() {
-  const [authUser] = useAuth();
+  const [authUser, setAuthUser] = useAuth();
 
   // Initialize form with default values, including education as an array
-  const { register, handleSubmit, control, setValue } = useForm({
+  const { register, handleSubmit, control, reset } = useForm({
     defaultValues: {
       email: authUser.email || "",
       name: authUser.name || "",
@@ -36,6 +36,7 @@ function User() {
   });
 
   const onSubmit = async (data) => {
+    console.log(data);
     try {
       const response = await axios.post(
         "https://pehcharm-backend.onrender.com/user/update",
@@ -43,8 +44,13 @@ function User() {
       );
 
       if (response.data) {
-        toast.success("User information updated successfully!");
         localStorage.setItem("Users", JSON.stringify(response.data.user));
+        toast.success("User information updated successfully!");
+        // Update the authUser context with the latest data
+        setAuthUser(response.data.user);
+
+        // Reset form with the updated data
+        reset(response.data.user);
         setTimeout(() => {
           window.location.reload(); // Reload the page after update
         }, 1000);
@@ -218,7 +224,7 @@ function User() {
                   rows={5}
                 />
                 <button
-                  className="login-btn m-2"
+                  className="btn btn-danger m-2"
                   type="button"
                   onClick={() => remove(index)}
                 >
