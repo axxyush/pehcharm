@@ -36,7 +36,6 @@ function User() {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       const response = await axios.post(
         "https://pehcharm-backend.onrender.com/user/update",
@@ -67,6 +66,7 @@ function User() {
 
   return (
     <>
+      {console.log("Auth User Data:", authUser)}
       <div className="form-container">
         {/* Portfolio Link */}
         <div className="card-link">
