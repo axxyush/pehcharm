@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Repo(props) {
+export function Repo(props) {
   return (
     <>
       <div className="container-repo">
@@ -26,4 +26,19 @@ function Repo(props) {
   );
 }
 
-export default Repo;
+export function Education(props) {
+  return (
+    <>
+      <div className="container-repo">
+        <div className="box">
+          <span className="title my-4 text-wrap">{props.name}</span>
+          <div>
+            <strong className="my-2">GPA: {props.gpa}</strong>
+            <span className="my-2">Degree: </span> <span>{props.degree}</span>
+            <p className="my-2">Description: {props.description}</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

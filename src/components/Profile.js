@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import logo from "../images/pehcharm-logo.png";
-import Repo from "./Repo";
+import { Repo, Education } from "./Repo";
 import Socials from "./Socials";
 
 function Profile() {
@@ -132,21 +132,24 @@ function Profile() {
               ""
             )}
             {/* Education **************************************8 */}
-            {userData.clgname ? (
+            {userData.education ? (
               <div
                 style={{ height: "fit-content", marginBottom: "40px" }}
                 className="container"
               >
                 <div className="card-experience">
-                  <h2 className="text-white">Education</h2>
-                  <div className="card__border" />
-                  <div className="card_title__container">
-                    <span className="card_title">{userData.clgname}</span>
-                    <p className="card_paragraph">
-                      {userData.degree} <br /> GPA: {userData.gpa}
-                    </p>
-                    <hr className="line" />
-                    <p className="card-description">{userData.activities}</p>
+                  <h2 className="text-white">My Education</h2>
+                  <div className="d-flex flex-wrap">
+                    {userData.education.map((clg) => (
+                      <div key={clg._id} className="repos ">
+                        <Education
+                          name={clg.clgname}
+                          gpa={clg.gpa}
+                          degree={clg.degree}
+                          description={clg.activities}
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

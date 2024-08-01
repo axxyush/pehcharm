@@ -66,7 +66,6 @@ function User() {
 
   return (
     <>
-      {console.log("Auth User Data:", authUser)}
       <div className="form-container">
         {/* Portfolio Link */}
         <div className="card-link">
@@ -228,7 +227,7 @@ function User() {
                   type="button"
                   onClick={() => remove(index)}
                 >
-                  Remove
+                  Remove Education
                 </button>
               </div>
             ))}
