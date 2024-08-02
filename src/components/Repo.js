@@ -33,10 +33,34 @@ export function Education(props) {
         <div className="box">
           <span className="title my-4 text-wrap">{props.name}</span>
           <div>
+            <strong className="my-2">GPA: {props.gpa}</strong>
             <span className="my-2">Graduation Year: </span>{" "}
             <span>{props.year}</span>
-            <strong className="my-2">GPA: {props.gpa}</strong>
+            <br />
             <span className="my-2">Degree: </span> <span>{props.degree}</span>
+            <hr className="line" />
+            <p className="my-2">
+              <b>Description:</b> {props.description}
+            </p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export function Experience(props) {
+  return (
+    <>
+      <div className="container-repo">
+        <div className="box">
+          <span className="title my-4 text-wrap">{props.jobtitle}</span>
+          <div>
+            <strong className="my-2"> {props.company}</strong>
+            <span>{props.year}</span>
+            <br />
+            <span className="my-2">Location: </span>{" "}
+            <span>{props.location}</span>
             <hr className="line" />
             <p className="my-2">
               <b>Description:</b> {props.description}

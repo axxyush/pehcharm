@@ -101,7 +101,7 @@ export const update = async (req, res) => {
         linkedin: user.linkedin,
         instagram: user.instagram,
         github: user.github,
-        education: user.education,
+        experience: user.experience,
         skills: user.skills,
         honors: user.honors,
         _id: user._id,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import logo from "../images/pehcharm-logo.png";
-import { Repo, Education } from "./Repo";
+import { Repo, Education, Experience } from "./Repo";
 import Socials from "./Socials";
 
 function Profile() {
@@ -125,6 +125,32 @@ function Profile() {
                     ) : (
                       ""
                     )}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+            {/* Experience **************************************8 */}
+            {userData.experience ? (
+              <div
+                style={{ height: "fit-content", marginBottom: "40px" }}
+                className="container"
+              >
+                <div className="card-experience">
+                  <h2 className="text-white">My Experience</h2>
+                  <div className="d-flex flex-wrap">
+                    {userData.experience.map((job) => (
+                      <div key={job._id} className="repos ">
+                        <Experience
+                          jobtitle={job.jobtitle}
+                          company={job.company}
+                          year={job.year}
+                          location={job.location}
+                          description={job.jobdescription}
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
