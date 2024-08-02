@@ -150,6 +150,27 @@ function Profile() {
             ) : (
               ""
             )}
+            {/* Skills **************************************8 */}
+            {userData.skills ? (
+              <div
+                style={{ height: "fit-content", marginBottom: "40px" }}
+                className="container"
+              >
+                <div className="card-experience">
+                  <h2 className="text-white">My Skills</h2>
+                  <hr className="line" />
+                  <ul className="tag">
+                    {userData.skills.map((skill, index) => (
+                      <li key={index} className="tag__name mx-2">
+                        {skill}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
             {/* Honors & Awards **************************************8 */}
             {userData.honors ? (
               <div
@@ -168,23 +189,7 @@ function Profile() {
             ) : (
               ""
             )}
-            {/* Skills **************************************8 */}
-            {userData.skills ? (
-              <div
-                style={{ height: "fit-content", marginBottom: "40px" }}
-                className="container"
-              >
-                <div className="card-experience">
-                  <h2 className="text-white">My Skills</h2>
-                  <ul className="tag">
-                    <li className="tag__name mx-2">React.js</li>
-                    <li className="tag__name mx-2">MongoDB</li>
-                  </ul>
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
+
             {/*GitHub Repos*/}
             {userData.github && repos.length > 0 && (
               <div

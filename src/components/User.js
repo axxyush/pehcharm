@@ -92,7 +92,6 @@ function User() {
 
   return (
     <>
-      {console.log(authUser)}
       <div className="form-container">
         {/* Portfolio Link */}
         <div className="card-link">
