@@ -13,6 +13,7 @@ import Signup from "./components/Signup";
 import AuthProvider, { useAuth } from "./context/AuthProvider";
 import { Toaster } from "react-hot-toast";
 import Profile from "./components/Profile";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Router>
         <MainLayout />
         <Toaster />
+        <SpeedInsights />
       </Router>
     </AuthProvider>
   );
