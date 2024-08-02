@@ -4,6 +4,7 @@ import axios from "axios";
 import logo from "../images/pehcharm-logo.png";
 import { Repo, Education, Experience } from "./Repo";
 import Socials from "./Socials";
+import Error from "./Error";
 
 function Profile() {
   const { username } = useParams();
@@ -49,11 +50,15 @@ function Profile() {
         </div>
       </div>
     );
-  if (error) return <p>Error: {error}</p>;
+  if (error)
+    return (
+      <div className="home">
+        <Error />
+      </div>
+    );
 
   return (
     <div>
-      <div></div>
       {userData ? (
         <>
           <div className="d-flex justify-content-center align-items-center flex-column ">
@@ -171,11 +176,10 @@ function Profile() {
               >
                 <div className="card-experience">
                   <h2 className="text-white">My Skills</h2>
-                  <div className="card__border" />
-                  <div className="card_title__container">
-                    <hr className="line" />
-                    <p className="card-description">{userData.skills}</p>
-                  </div>
+                  <ul className="tag">
+                    <li className="tag__name mx-2">React.js</li>
+                    <li className="tag__name mx-2">MongoDB</li>
+                  </ul>
                 </div>
               </div>
             ) : (

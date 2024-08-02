@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 export function Repo(props) {
   return (
     <>
-      <div className="container-repo">
-        <div className="box">
+      <div className="container-repo ">
+        <div className="box slide-up">
           <span className="title my-4 text-wrap">{props.name}</span>
           <div>
             <strong className="my-2">Visibility: {props.visibility}</strong>
@@ -29,8 +29,8 @@ export function Repo(props) {
 export function Education(props) {
   return (
     <>
-      <div className="container-repo">
-        <div className="box">
+      <div className="container-repo ">
+        <div className="box slide-up">
           <span className="title my-4 text-wrap">{props.name}</span>
           <div>
             <strong className="my-2">GPA: {props.gpa}</strong>
@@ -53,7 +53,7 @@ export function Experience(props) {
   return (
     <>
       <div className="container-repo">
-        <div className="box">
+        <div className="box slide-up">
           <span className="title my-4 text-wrap">{props.jobtitle}</span>
           <div>
             <strong className="my-2"> {props.company}</strong>

@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
   instagram: String,
   github: String,
   experience: [experienceSchema],
-  skills: String,
+  skills: [String],
   honors: String,
 });
 

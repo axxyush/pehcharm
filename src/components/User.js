@@ -29,7 +29,7 @@ function User() {
       linkedin: authUser.linkedin || "",
       instagram: authUser.instagram || "",
       github: authUser.github || "",
-      skills: authUser.skills || "",
+      skills: authUser.skills || [""],
       honors: authUser.honors || "",
     },
   });
@@ -50,6 +50,15 @@ function User() {
   } = useFieldArray({
     control,
     name: "experience",
+  });
+
+  const {
+    fields: skillsFields,
+    append: appendSkills,
+    remove: removeSkills,
+  } = useFieldArray({
+    control,
+    name: "skills",
   });
 
   const onSubmit = async (data) => {
@@ -337,19 +346,45 @@ function User() {
           </form>
         </div>
 
+        {/* Update Skills Section */}
+        <div className="container-form">
+          <div className="heading">Update Skills</div>
+          <form onSubmit={handleSubmit(onSubmit)} className="form">
+            {skillsFields.map((field, index) => (
+              <div key={field.id} className="skill-entry">
+                <p>Skill:</p>
+                <input
+                  placeholder="Skill"
+                  id={`skills[${index}]`}
+                  name={`skills[${index}]`}
+                  type="text"
+                  className="input"
+                  {...register(`skills[${index}]`)}
+                />
+                <button
+                  className="btn btn-danger m-2"
+                  type="button"
+                  onClick={() => removeSkills(index)}
+                >
+                  Remove Skill
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              className="login-btn m-2"
+              onClick={() => appendSkills("")}
+            >
+              Add Skill
+            </button>
+            <input value="Update" type="submit" className="login-button" />
+          </form>
+        </div>
+
         {/* Update Other Information Section */}
         <div className="container-form">
-          <div className="heading">Update Other Information</div>
+          <div className="heading">Update Honors & Awards</div>
           <form onSubmit={handleSubmit(onSubmit)} className="form">
-            <p>Briefly explain your skills:</p>
-            <textarea
-              placeholder="Skills"
-              id="skills"
-              name="skills"
-              className="input"
-              {...register("skills")}
-              rows={5}
-            />
             <p>Briefly explain your Honors & Awards:</p>
             <textarea
               placeholder="Honors & Awards"
