@@ -94,44 +94,6 @@ function Profile() {
             </div>
 
             {/* Experience **************************************8 */}
-            {userData.jobtitle ? (
-              <div
-                style={{ height: "fit-content", marginBottom: "40px" }}
-                className="container"
-              >
-                <div className="card-experience">
-                  <h2 className="text-white">Current Position</h2>
-                  <div className="card__border" />
-                  <div className="card_title__container">
-                    <span className="card_title">{userData.jobtitle}</span>
-                    <p className="card_paragraph">
-                      {userData.company} <br /> {userData.location}
-                    </p>
-                    <hr className="line" />
-                    <p className="card-description">
-                      {userData.jobdescription}
-                    </p>
-                    {userData.otherexperiences ? (
-                      <>
-                        <br />
-                        <h4 className="text-white">
-                          Other Relevant Experiences
-                        </h4>
-                        <hr className="line" />
-                        <p className="card-description">
-                          {userData.otherexperiences}
-                        </p>
-                      </>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
-            {/* Experience **************************************8 */}
             {userData.experience ? (
               <div
                 style={{ height: "fit-content", marginBottom: "40px" }}
