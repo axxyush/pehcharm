@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 function User() {
   const [authUser, setAuthUser] = useAuth();
 
-  // Initialize form with default values, including education as an array
+  // Initialize form with default values, including experience as an array
   const { register, handleSubmit, control, reset } = useForm({
     defaultValues: {
       email: authUser.email || "",
@@ -17,22 +17,39 @@ function User() {
       education: authUser.education || [
         { clgname: "", degree: "", year: "", gpa: "", activities: "" },
       ],
+      experience: authUser.experience || [
+        {
+          jobtitle: "",
+          company: "",
+          year: "",
+          location: "",
+          jobdescription: "",
+        },
+      ],
       linkedin: authUser.linkedin || "",
       instagram: authUser.instagram || "",
       github: authUser.github || "",
-      jobtitle: authUser.jobtitle || "",
-      company: authUser.company || "",
-      location: authUser.location || "",
-      jobdescription: authUser.jobdescription || "",
-      otherexperiences: authUser.otherexperiences || "",
       skills: authUser.skills || "",
       honors: authUser.honors || "",
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const {
+    fields: educationFields,
+    append: appendEducation,
+    remove: removeEducation,
+  } = useFieldArray({
     control,
     name: "education",
+  });
+
+  const {
+    fields: experienceFields,
+    append: appendExperience,
+    remove: removeExperience,
+  } = useFieldArray({
+    control,
+    name: "experience",
   });
 
   const onSubmit = async (data) => {
@@ -131,51 +148,76 @@ function User() {
         <div className="container-form">
           <div className="heading">Update Experience</div>
           <form onSubmit={handleSubmit(onSubmit)} className="form">
-            <p>Current Job Title:</p>
-            <input
-              placeholder="Current Job Title"
-              id="jobtitle"
-              name="jobtitle"
-              type="text"
-              className="input"
-              {...register("jobtitle")}
-            />
-            <p>Company Name:</p>
-            <input
-              placeholder="Company Name"
-              id="company"
-              name="company"
-              type="text"
-              className="input"
-              {...register("company")}
-            />
-            <p>Location:</p>
-            <input
-              placeholder="Location"
-              id="location"
-              name="location"
-              type="text"
-              className="input"
-              {...register("location")}
-            />
-            <p>Job Description:</p>
-            <textarea
-              placeholder="Job Description"
-              id="jobdescription"
-              name="jobdescription"
-              className="input"
-              {...register("jobdescription")}
-              rows={5}
-            />
-            <p>Explain other relevant Experiences briefly:</p>
-            <textarea
-              placeholder="Other Experiences"
-              id="otherexperiences"
-              name="otherexperiences"
-              className="input"
-              {...register("otherexperiences")}
-              rows={5}
-            />
+            {experienceFields.map((field, index) => (
+              <div key={field.id} className="experience-entry">
+                <p>Job Title:</p>
+                <input
+                  placeholder="Job Title"
+                  id={`experience[${index}].jobtitle`}
+                  name={`experience[${index}].jobtitle`}
+                  type="text"
+                  className="input"
+                  {...register(`experience[${index}].jobtitle`)}
+                />
+                <p>Company Name:</p>
+                <input
+                  placeholder="Company Name"
+                  id={`experience[${index}].company`}
+                  name={`experience[${index}].company`}
+                  type="text"
+                  className="input"
+                  {...register(`experience[${index}].company`)}
+                />
+                <p>Enter time period:</p>
+                <input
+                  placeholder="Time Period"
+                  id={`experience[${index}].year`}
+                  name={`experience[${index}].year`}
+                  type="text"
+                  className="input"
+                  {...register(`experience[${index}].year`)}
+                />
+                <p>Location:</p>
+                <input
+                  placeholder="Location"
+                  id={`experience[${index}].location`}
+                  name={`experience[${index}].location`}
+                  type="text"
+                  className="input"
+                  {...register(`experience[${index}].location`)}
+                />
+                <p>Job Description:</p>
+                <textarea
+                  placeholder="Job Description"
+                  id={`experience[${index}].jobdescription`}
+                  name={`experience[${index}].jobdescription`}
+                  className="input"
+                  {...register(`experience[${index}].jobdescription`)}
+                  rows={5}
+                />
+                <button
+                  className="btn btn-danger m-2"
+                  type="button"
+                  onClick={() => removeExperience(index)}
+                >
+                  Remove Experience
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              className="login-btn m-2"
+              onClick={() =>
+                appendExperience({
+                  jobtitle: "",
+                  company: "",
+                  location: "",
+                  jobdescription: "",
+                })
+              }
+            >
+              Add Experience
+            </button>
             <input value="Update" type="submit" className="login-button" />
           </form>
         </div>
@@ -184,7 +226,7 @@ function User() {
         <div className="container-form">
           <div className="heading">Update Education</div>
           <form onSubmit={handleSubmit(onSubmit)} className="form">
-            {fields.map((field, index) => (
+            {educationFields.map((field, index) => (
               <div key={field.id} className="education-entry">
                 <p>College Name:</p>
                 <input
@@ -204,7 +246,7 @@ function User() {
                   className="input"
                   {...register(`education[${index}].degree`)}
                 />
-                <p>Gradutaion Year:</p>
+                <p>Graduation Year:</p>
                 <input
                   placeholder="Year"
                   id={`education[${index}].year`}
@@ -234,7 +276,7 @@ function User() {
                 <button
                   className="btn btn-danger m-2"
                   type="button"
-                  onClick={() => remove(index)}
+                  onClick={() => removeEducation(index)}
                 >
                   Remove Education
                 </button>
@@ -244,7 +286,13 @@ function User() {
               type="button"
               className="login-btn m-2"
               onClick={() =>
-                append({ clgname: "", degree: "", gpa: "", activities: "" })
+                appendEducation({
+                  clgname: "",
+                  degree: "",
+                  year: "",
+                  gpa: "",
+                  activities: "",
+                })
               }
             >
               Add Education

@@ -58,13 +58,13 @@ function Profile() {
         <>
           <div className="d-flex justify-content-center align-items-center flex-column ">
             {/* Heading **************************************8 */}
-            <div className="container mt-5 col-xxl-11 px-4 py-5">
+            <div className="container  mt-5 col-xxl-11 px-4 py-5">
               <div className="row flex-lg-row-reverse align-items-center py-3">
-                <div className="col-9 col-sm-7 col-lg-5">
+                <div className=" col-9 col-sm-7 col-lg-5">
                   {userData.linkedin ||
                   userData.instagram ||
                   userData.github ? (
-                    <div className="d-block m-5">
+                    <div className="slide-side d-block m-5">
                       <Socials
                         instagram={userData.instagram}
                         linkedin={userData.linkedin}
@@ -74,7 +74,7 @@ function Profile() {
                   ) : (
                     <img
                       src={logo}
-                      className="d-block banner-img mx-lg-auto img-fluid"
+                      className="slide-side d-block banner-img mx-lg-auto img-fluid"
                       alt="Bootstrap Themes"
                       width={400}
                       height={400}
@@ -84,7 +84,7 @@ function Profile() {
 
                   {/* <div className="one-div"></div> */}
                 </div>
-                <div className=" col-lg-7">
+                <div className="slide-up col-lg-7">
                   <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">
                     {userData.name}
                   </h1>

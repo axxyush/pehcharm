@@ -8,6 +8,14 @@ const educationSchema = new mongoose.Schema({
   activities: String,
 });
 
+const experienceSchema = new mongoose.Schema({
+  jobtitle: String,
+  company: String,
+  year: String,
+  location: String,
+  jobdescription: String,
+});
+
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
@@ -18,11 +26,7 @@ const userSchema = new mongoose.Schema({
   linkedin: String,
   instagram: String,
   github: String,
-  jobtitle: String,
-  company: String,
-  location: String,
-  jobdescription: String,
-  otherexperiences: String,
+  experience: [experienceSchema],
   skills: String,
   honors: String,
 });
