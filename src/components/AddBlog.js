@@ -28,7 +28,7 @@ function AddBlog() {
       username: formData.username,
       content: formData.content,
       date: formData.date,
-      imageURL: formData.imageURL,
+      imageUrl: formData.imageUrl,
       title: formData.title,
     };
 
@@ -39,8 +39,10 @@ function AddBlog() {
       );
       if (res.data) {
         toast.success("Blog Posted Successfully!");
-        // localStorage.setItem("Users", JSON.stringify(res.data.user));
-        // navigate(from, { replace: true });
+        localStorage.setItem("Blogs", JSON.stringify(res.data.blog));
+        // setTimeout(() => {
+        //   window.location.reload(); // Reload the page after update
+        // }, 1000);
       }
     } catch (err) {
       toast.error("Some error occurred");
@@ -48,7 +50,7 @@ function AddBlog() {
       setLoading(false); // Stop loading
     }
 
-    console.log(formData);
+    console.log(blogInfo);
   };
 
   const handleImageChange = (event) => {
@@ -64,7 +66,7 @@ function AddBlog() {
       <div className="form-container">
         <h2>Feature coming soon!!</h2>
         <div className="container-form">
-          <div className="heading">Upload Blog {authUser.name}</div>
+          <div className="heading">Upload Blog {authUser.username}</div>
           {loading ? (
             <div className="home">
               <div className="spinner-border text-dark" role="status">

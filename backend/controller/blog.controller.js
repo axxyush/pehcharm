@@ -2,16 +2,16 @@ export default Blog;
 
 import Blog from "../model/blog.model.js";
 
-export const create = async (req, res) => {
+export const addblog = async (req, res) => {
   try {
-    const { content, title, date, image, email } = req.body;
+    const { content, title, date, imageUrl, username } = req.body;
 
     const createdBlog = new Blog({
       content: content,
       title: title,
       date: date,
-      image: image,
-      email: email,
+      imageUrl: imageUrl,
+      username: username,
     });
 
     await createdBlog.save();
@@ -22,8 +22,8 @@ export const create = async (req, res) => {
         content: createdBlog.content,
         title: createdBlog.title,
         date: createdBlog.date,
-        image: createdBlog.image,
-        email: createdBlog.email,
+        imageUrl: createdBlog.imageUrl,
+        username: createdBlog.username,
         _id: createdBlog._id,
       },
     });
