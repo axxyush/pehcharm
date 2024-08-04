@@ -75,10 +75,27 @@ function Navbar() {
                   Account
                 </Link>
               </li>
-
               <li
                 className={`nav-item ${
-                  location.pathname === "/contact" ? "active" : ""
+                  location.pathname === `/${authUser?.username}/addblog`
+                    ? "active"
+                    : ""
+                }  `}
+              >
+                {authUser ? (
+                  <Link
+                    className="nav-link"
+                    to={`/${authUser?.username}/addblog`}
+                  >
+                    Blog
+                  </Link>
+                ) : (
+                  ""
+                )}
+              </li>
+              <li
+                className={`nav-item ${
+                  location.pathname === `/${authUser?.username}` ? "active" : ""
                 }  `}
               >
                 {authUser ? (

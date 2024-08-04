@@ -188,13 +188,17 @@ body {
 .form p {
   margin-left: 10px;
   margin-bottom: -1px;
-  color: #03a9f4;
+  color: #324d5b;
 }
 
 .form .forgot-password {
   display: block;
   margin-top: 10px;
   margin-left: 10px;
+}
+
+.form {
+  color: #000;
 }
 
 .form .forgot-password a {

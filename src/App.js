@@ -14,6 +14,7 @@ import AuthProvider, { useAuth } from "./context/AuthProvider";
 import { Toaster } from "react-hot-toast";
 import Profile from "./components/Profile";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import AddBlog from "./components/AddBlog";
 
 function App() {
   return (
@@ -41,6 +42,10 @@ function MainLayout() {
         />
         <Route path="/signup" element={<Signup />} />
         <Route path="/:username" element={<Profile />} />
+        <Route
+          path="/:username/addblog"
+          element={<ProtectedRoute component={AddBlog} authUser={authUser} />}
+        />
       </Routes>
       <Footer />
     </>

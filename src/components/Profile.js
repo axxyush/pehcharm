@@ -93,6 +93,10 @@ function Profile() {
                   <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">
                     {userData.name}
                   </h1>
+                  <p>
+                    <i className="fa-solid fa-envelope mx-2"></i>
+                    {userData.email}
+                  </p>
                   <p className="fs-5">{userData.about}</p>
                 </div>
               </div>
