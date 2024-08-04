@@ -3,6 +3,7 @@ const app = express();
 import mongoose from "mongoose";
 import cors from "cors";
 import userRoute from "./route/user.route.js";
+import blogRoute from "./route/blog.route.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -25,6 +26,7 @@ mongoose
 
 //Defining routes
 app.use("/user", userRoute);
+app.use("/blogs", blogRoute);
 
 app.listen(PORT, () => {
   console.log(`Pehcharm listening on port ${PORT}`);

@@ -57,7 +57,7 @@ function Signup() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-3">
               <label htmlFor="exampleInputName1" className="form-label">
-                Name
+                Name:
               </label>
               <input
                 type="text"
