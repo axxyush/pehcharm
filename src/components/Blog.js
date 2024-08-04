@@ -73,7 +73,9 @@ function Blog() {
                             username={blog.username}
                             content={blog.content}
                             delete={
-                              authUser.username === username ? "" : "invisible"
+                              authUser && authUser.username === username
+                                ? ""
+                                : "invisible"
                             }
                             deleteBlog={() => deleteBlog(blog._id)}
                           />
