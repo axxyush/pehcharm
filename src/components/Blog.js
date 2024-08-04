@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Blogs } from "./Repo";
+import { useAuth } from "../context/AuthProvider";
+import toast from "react-hot-toast";
 
 function Blog() {
   const { username } = useParams();
   const [blogData, setBlogData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [authUser] = useAuth();
   useEffect(() => {
     // Fetch blog data from the backend
     axios
@@ -20,6 +23,19 @@ function Blog() {
         setLoading(false);
       });
   }, [username]);
+
+  const deleteBlog = async (id) => {
+    try {
+      await axios.delete(`https://pehcharm-backend.onrender.com/blogs/${id}`);
+      setBlogData((prevBlogData) =>
+        prevBlogData.filter((blog) => blog._id !== id)
+      );
+      toast.success("Blog deleted successfully");
+    } catch (err) {
+      console.error("Error deleting blog:", err);
+      toast.error("Some error occurred");
+    }
+  };
 
   return (
     <>
@@ -53,6 +69,10 @@ function Blog() {
                             date={blog.date}
                             username={blog.username}
                             content={blog.content}
+                            delete={
+                              authUser.username === username ? "" : "invisible"
+                            }
+                            deleteBlog={() => deleteBlog(blog._id)}
                           />
                         </div>
                       ))}

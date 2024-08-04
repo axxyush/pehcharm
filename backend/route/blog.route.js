@@ -21,4 +21,20 @@ router.get("/:username/blogs", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const blog = await Blog.findByIdAndDelete(id);
+
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+
+    res.json({ message: "Blog deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting blog:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 export default router;

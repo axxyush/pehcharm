@@ -80,7 +80,7 @@ export function Blogs(props) {
           <span className="title my-4 text-wrap">
             {props.title}
             <span
-              className={`badge ${props.invisible} rounded-pill text-bg-danger`}
+              className={`badge mx-2 ${props.invisible} rounded-pill text-bg-success`}
             >
               Latest
             </span>
@@ -91,6 +91,13 @@ export function Blogs(props) {
             <span>{props.date}</span>
             <hr className="line" />
             <p className="my-2">{props.content}</p>
+            <button
+              onClick={props.deleteBlog}
+              type="submit"
+              className={`btn ${props.delete} btn-danger`}
+            >
+              Delete Blog
+            </button>
           </div>
         </div>
       </div>
