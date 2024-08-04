@@ -12,7 +12,6 @@ function AddBlog() {
   } = useForm();
 
   const [authUser] = useAuth();
-  const [imageUrl, setImageUrl] = useState(null);
   const today = new Date().toJSON().slice(0, 10);
   const [loading, setLoading] = useState(false); // Add loading state
 
@@ -21,14 +20,12 @@ function AddBlog() {
     const formData = {
       ...data,
       username: authUser.username,
-      imageUrl: imageUrl || "",
     };
 
     const blogInfo = {
       username: formData.username,
       content: formData.content,
       date: formData.date,
-      imageUrl: formData.imageUrl,
       title: formData.title,
     };
 
@@ -53,20 +50,11 @@ function AddBlog() {
     console.log(blogInfo);
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setImageUrl(url);
-    }
-  };
-
   return (
     <>
       <div className="form-container">
-        <h2>Feature coming soon!!</h2>
         <div className="container-form">
-          <div className="heading">Upload Blog {authUser.username}</div>
+          <div className="heading">Upload Blog</div>
           {loading ? (
             <div className="home">
               <div className="spinner-border text-dark" role="status">
@@ -99,35 +87,6 @@ function AddBlog() {
               />
               {errors.date && (
                 <span className="text-danger">This field is required</span>
-              )}
-
-              <p>Image:</p>
-              <input
-                id="image"
-                name="image"
-                type="file"
-                className="input"
-                accept="image/*"
-                //   {...register("image")}
-                onChange={handleImageChange} // Handle file input change
-              />
-              {errors.image && (
-                <span className="text-danger">Only images are allowed</span>
-              )}
-              {imageUrl && (
-                <div>
-                  <p>Preview:</p>
-                  <img
-                    src={imageUrl}
-                    alt="Preview"
-                    style={{
-                      height: "200px",
-                      border: "2px solid black",
-                      borderRadius: "10px",
-                      marginBottom: "15px",
-                    }}
-                  />
-                </div>
               )}
 
               <p>Content:</p>

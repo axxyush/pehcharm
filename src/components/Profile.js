@@ -59,7 +59,7 @@ function Profile() {
     );
 
   const handleBlog = () => {
-    navigate(`/:username/blogs`);
+    navigate(`/${username}/blogs`);
   };
 
   return (
@@ -114,7 +114,7 @@ function Profile() {
             </div>
 
             {/* Experience **************************************8 */}
-            {userData.experience ? (
+            {userData.experience.length > 0 ? (
               <div
                 style={{ height: "fit-content", marginBottom: "40px" }}
                 className="container"
@@ -140,7 +140,7 @@ function Profile() {
               ""
             )}
             {/* Education **************************************8 */}
-            {userData.education ? (
+            {userData.education.length > 0 ? (
               <div
                 style={{ height: "fit-content", marginBottom: "40px" }}
                 className="container"
@@ -166,7 +166,7 @@ function Profile() {
               ""
             )}
             {/* Skills **************************************8 */}
-            {userData.skills ? (
+            {userData.skills.length > 0 ? (
               <div
                 style={{ height: "fit-content", marginBottom: "40px" }}
                 className="container"

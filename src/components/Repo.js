@@ -71,3 +71,29 @@ export function Experience(props) {
     </>
   );
 }
+
+export function Blogs(props) {
+  return (
+    <>
+      <div className="container-repo">
+        <div className="box slide-up">
+          <span className="title my-4 text-wrap">
+            {props.title}
+            <span
+              className={`badge ${props.invisible} rounded-pill text-bg-danger`}
+            >
+              Latest
+            </span>
+          </span>
+          <div>
+            <strong className="my-2">by {props.username}</strong>
+            <span className="my-2">Date Published: </span>{" "}
+            <span>{props.date}</span>
+            <hr className="line" />
+            <p className="my-2">{props.content}</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
