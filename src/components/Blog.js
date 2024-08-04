@@ -26,6 +26,7 @@ function Blog() {
 
   const deleteBlog = async (id) => {
     try {
+      setLoading(true);
       await axios.delete(`https://pehcharm-backend.onrender.com/blogs/${id}`);
       setBlogData((prevBlogData) =>
         prevBlogData.filter((blog) => blog._id !== id)
@@ -34,6 +35,8 @@ function Blog() {
     } catch (err) {
       console.error("Error deleting blog:", err);
       toast.error("Some error occurred");
+    } finally {
+      setLoading(false);
     }
   };
 
