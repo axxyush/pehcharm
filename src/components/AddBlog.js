@@ -40,9 +40,9 @@ function AddBlog() {
       if (res.data) {
         toast.success("Blog Posted Successfully!");
         localStorage.setItem("Blogs", JSON.stringify(res.data.blog));
-        // setTimeout(() => {
-        //   window.location.reload(); // Reload the page after update
-        // }, 1000);
+        setTimeout(() => {
+          window.location.reload(); // Reload the page after update
+        }, 1000);
       }
     } catch (err) {
       toast.error("Some error occurred");

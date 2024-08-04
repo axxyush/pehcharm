@@ -15,6 +15,7 @@ import { Toaster } from "react-hot-toast";
 import Profile from "./components/Profile";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import AddBlog from "./components/AddBlog";
+import Blog from "./components/Blog";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function MainLayout() {
           path="/:username/addblog"
           element={<ProtectedRoute component={AddBlog} authUser={authUser} />}
         />
+        <Route path="/:username/blogs" element={<Blog />} />
       </Routes>
       <Footer />
     </>

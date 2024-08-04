@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import logo from "../images/pehcharm-logo.png";
 import { Repo, Education, Experience } from "./Repo";
@@ -12,6 +12,7 @@ function Profile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [repos, setRepos] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch user data from the backend
@@ -57,6 +58,10 @@ function Profile() {
       </div>
     );
 
+  const handleBlog = () => {
+    navigate(`/:username/blogs`);
+  };
+
   return (
     <div>
       {userData ? (
@@ -95,7 +100,13 @@ function Profile() {
                   </h1>
                   <p>
                     <i className="fa-solid fa-envelope mx-2"></i>
-                    {userData.email}
+                    {userData.email}{" "}
+                    <button
+                      onClick={handleBlog}
+                      className="btn-lg m-3 px-4 me-md-2 login-btn"
+                    >
+                      My Blogs
+                    </button>
                   </p>
                   <p className="fs-5">{userData.about}</p>
                 </div>
