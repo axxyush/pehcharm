@@ -68,6 +68,7 @@ export const login = async (req, res) => {
           github: user.github,
           skills: user.skills,
           honors: user.honors,
+          project: user.project,
           _id: user._id,
         },
       });
@@ -104,6 +105,7 @@ export const update = async (req, res) => {
         experience: user.experience,
         skills: user.skills,
         honors: user.honors,
+        project: user.project,
         _id: user._id,
       },
     });

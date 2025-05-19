@@ -1,22 +1,23 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 const app = express();
 import mongoose from "mongoose";
 import cors from "cors";
 import userRoute from "./route/user.route.js";
 import blogRoute from "./route/blog.route.js";
-import dotenv from "dotenv";
-dotenv.config();
 
 app.use(cors());
 app.use(express.json());
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
-const URI = process.env.URI;
+const MONGO_URI = process.env.MONGO_URI;
 
 // Connect to MongoDB
 mongoose
-  .connect(URI)
+  .connect(MONGO_URI)
   .then(() => {
     console.log("Connected to MongoDB");
   })

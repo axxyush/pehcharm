@@ -26,6 +26,15 @@ function User() {
           jobdescription: "",
         },
       ],
+      project: authUser.project || [
+        {
+          title: "",
+          skills: "",
+          time: "",
+          link: "",
+          description: "",
+        },
+      ],
       linkedin: authUser.linkedin || "",
       instagram: authUser.instagram || "",
       github: authUser.github || "",
@@ -50,6 +59,15 @@ function User() {
   } = useFieldArray({
     control,
     name: "experience",
+  });
+
+  const {
+    fields: projectFields,
+    append: appendProject,
+    remove: removeProject,
+  } = useFieldArray({
+    control,
+    name: "project",
   });
 
   const {
@@ -226,6 +244,85 @@ function User() {
               }
             >
               Add Experience
+            </button>
+            <input value="Update" type="submit" className="login-button" />
+          </form>
+        </div>
+
+        {/* Update Projects Section */}
+        <div className="container-form">
+          <div className="heading">Update Projects</div>
+          <form onSubmit={handleSubmit(onSubmit)} className="form">
+            {projectFields.map((field, index) => (
+              <div key={field.id} className="project-entry">
+                <p>Project Title:</p>
+                <input
+                  placeholder="Project Title"
+                  id={`project[${index}].title`}
+                  name={`project[${index}].title`}
+                  type="text"
+                  className="input"
+                  {...register(`project[${index}].title`)}
+                />
+                <p>Skills:</p>
+                <input
+                  placeholder="Skills"
+                  id={`project[${index}].skills`}
+                  name={`project[${index}].skills`}
+                  type="text"
+                  className="input"
+                  {...register(`project[${index}].skills`)}
+                />
+                <p>Enter time period:</p>
+                <input
+                  placeholder="Time Period"
+                  id={`project[${index}].time`}
+                  name={`project[${index}].time`}
+                  type="text"
+                  className="input"
+                  {...register(`project[${index}].time`)}
+                />
+                <p>Link:</p>
+                <input
+                  placeholder="Link"
+                  id={`project[${index}].link`}
+                  name={`project[${index}].link`}
+                  type="text"
+                  className="input"
+                  {...register(`project[${index}].link`)}
+                />
+                <p>Description:</p>
+                <textarea
+                  placeholder="Description"
+                  id={`project[${index}].description`}
+                  name={`project[${index}].description`}
+                  className="input"
+                  {...register(`project[${index}].description`)}
+                  rows={5}
+                />
+                <button
+                  className="btn btn-danger m-2"
+                  type="button"
+                  onClick={() => removeProject(index)}
+                >
+                  Remove Project
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              className="login-btn m-2"
+              onClick={() =>
+                appendProject({
+                  title: "",
+                  skills: "",
+                  time: "",
+                  link: "",
+                  description: "",
+                })
+              }
+            >
+              Add Project
             </button>
             <input value="Update" type="submit" className="login-button" />
           </form>

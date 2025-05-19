@@ -52,22 +52,55 @@ export function Education(props) {
 export function Experience(props) {
   return (
     <>
-      <div className="container-repo">
-        <div className="box slide-up">
-          <span className="title my-4 text-wrap">{props.jobtitle}</span>
-          <div>
-            <strong className="my-2"> {props.company}</strong>
-            <span>{props.year}</span>
+      <div className="container-exp d-flex flex-column">
+        <div className="exp1 slide-up d-flex flex-row">
+          <div
+            className="position text-light"
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0.22)",
+              borderRadius: "10px",
+              width: "30%",
+              marginRight: "20px",
+              padding: "20px",
+            }}
+          >
+            <h1 className="display-1 fw-bold text-white">*</h1>
+            <span className=" my-4 text-wrap">
+              <b className="texts">{props.jobtitle}</b>
+            </span>{" "}
             <br />
-            <span className="my-2">Location: </span>{" "}
-            <span>{props.location}</span>
-            <hr className="line" />
-            <p className="my-2">
-              <b>Description:</b> {props.description}
-            </p>
+            <span className="texts">{props.year}</span> <br />
+            <span className="texts">{props.location}</span>
+          </div>
+          <div
+            className="description text-light"
+            style={{
+              background: `linear-gradient(45deg, #405de6, rgb(155, 81, 219), #b33ab4, #c135b4, #e1306c, #fd1f1f)`,
+              borderRadius: "10px",
+              width: "65%",
+              padding: "20px",
+            }}
+          >
+            <p className="my-2 texts">{props.description}</p>
           </div>
         </div>
+
+        <div
+          className="exp2 text-center"
+          style={{
+            border: "2px solid white",
+            borderRadius: "20px",
+            marginTop: "20px",
+            width: "95%",
+            padding: "5px",
+          }}
+        >
+          <p className="my-2 text-light">
+            <b className="texts">{props.company}</b>
+          </p>
+        </div>
       </div>
+      <hr />
     </>
   );
 }

@@ -56,7 +56,10 @@ function Signup() {
         ) : (
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-3">
-              <label htmlFor="exampleInputName1" className="form-label">
+              <label
+                htmlFor="exampleInputName1"
+                className="form-label text-light"
+              >
                 Name:
               </label>
               <input
@@ -70,7 +73,10 @@ function Signup() {
               )}
             </div>
             <div className="mb-3">
-              <label htmlFor="exampleInputEmail1" className="form-label">
+              <label
+                htmlFor="exampleInputEmail1"
+                className="form-label text-light"
+              >
                 Email address
               </label>
               <input
@@ -82,12 +88,15 @@ function Signup() {
               {errors.email && (
                 <span className="text-danger">This field is required</span>
               )}
-              <div className="form-text">
+              <div className="form-text text-light">
                 We'll never share your email with anyone else.
               </div>
             </div>
             <div className="mb-3">
-              <label htmlFor="exampleInputUsername1" className="form-label">
+              <label
+                htmlFor="exampleInputUsername1"
+                className="form-label text-light"
+              >
                 User Name
               </label>
               <input
@@ -101,7 +110,10 @@ function Signup() {
               )}
             </div>
             <div className="mb-3">
-              <label htmlFor="exampleInputPassword1" className="form-label">
+              <label
+                htmlFor="exampleInputPassword1"
+                className="form-label text-light"
+              >
                 Password
               </label>
               <input
@@ -121,7 +133,7 @@ function Signup() {
             <button type="submit" className="btn btn-primary">
               Sign up
             </button>
-            <p className="mt-3">
+            <p className="mt-3 text-light">
               Have account?{" "}
               <Link
                 data-bs-toggle="modal"

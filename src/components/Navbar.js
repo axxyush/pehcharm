@@ -28,14 +28,14 @@ function Navbar() {
   return (
     <>
       <nav
-        className={`navbar ${
-          sticky ? "navbar-dark" : ""
-        } fixed-top navbar-expand-lg ${sticky ? "bg-dark" : "bg-transparent"} `}
+        className={`navbar navbar-dark fixed-top navbar-expand-lg ${
+          sticky ? "bg-dark" : "bg-transparent"
+        }`}
       >
         <div className="container-fluid">
           <Link className="navbar-brand fw-bold" to="/">
             <img
-              style={{ height: "50px" }}
+              style={{ height: "40px", marginRight: "10px" }}
               src={pehcharm}
               alt="pehcharm-logo"
             />

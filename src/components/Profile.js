@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import logo from "../images/pehcharm-logo.png";
 import { Repo, Education, Experience } from "./Repo";
 import Socials from "./Socials";
 import Error from "./Error";
+import pehcharm from "../images/pehcharm-logo.png";
 
 function Profile() {
   const { username } = useParams();
@@ -16,6 +16,7 @@ function Profile() {
 
   useEffect(() => {
     // Fetch user data from the backend
+
     axios
       .get(`https://pehcharm-backend.onrender.com/user/${username}`)
       .then((response) => {
@@ -66,178 +67,203 @@ function Profile() {
     <div>
       {userData ? (
         <>
-          <div className="d-flex justify-content-center align-items-center flex-column ">
-            {/* Heading **************************************8 */}
-            <div className="container  mt-5 col-xxl-11 px-4 py-5">
-              <div className="row flex-lg-row-reverse align-items-center py-3">
-                <div className=" col-9 col-sm-7 col-lg-5">
-                  {userData.linkedin ||
-                  userData.instagram ||
-                  userData.github ? (
-                    <div className="slide-side d-block m-5">
-                      <Socials
-                        instagram={userData.instagram}
-                        linkedin={userData.linkedin}
-                        github={userData.github}
-                      />
-                    </div>
-                  ) : (
-                    <img
-                      src={logo}
-                      className="slide-side d-block banner-img mx-lg-auto img-fluid"
-                      alt="Bootstrap Themes"
-                      width={400}
-                      height={400}
-                      loading="lazy"
-                    />
-                  )}
-
-                  {/* <div className="one-div"></div> */}
-                </div>
-                <div className="slide-up col-lg-7">
-                  <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">
-                    {userData.name}
-                  </h1>
-                  <p>
-                    <i className="fa-solid fa-envelope mx-2"></i>
-                    {userData.email}{" "}
-                    <button
-                      onClick={handleBlog}
-                      className="btn-lg m-3 px-4 me-md-2 login-btn"
-                    >
-                      My Blogs
-                    </button>
-                  </p>
-                  <p className="fs-5">{userData.about}</p>
+          <div className="home container col-xxl-8 px-4 py-5">
+            <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
+              <div className="col-10 col-sm-4 col-lg-5">
+                <img
+                  src={pehcharm}
+                  className="banner-img d-block mx-lg-auto img-fluid"
+                  alt="Bootstrap Themes"
+                  width={700}
+                  height={500}
+                  loading="lazy"
+                />
+              </div>
+              <div className="col-lg-6">
+                <h1 className="display-1 fw-bold text-white">Hey!!</h1>
+                <h1 className="display-5 fw-bold text-white mb-5">
+                  I am {userData.name}
+                </h1>
+                <div className="d-flex text-light flex-row align-items-center">
+                  <i
+                    style={{
+                      backgroundColor: "black",
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    className="fa-solid fa-envelope mx-2"
+                  ></i>
+                  {userData.email}
                 </div>
               </div>
-            </div>
-
-            {/* Experience **************************************8 */}
-            {userData.experience.length > 0 ? (
-              <div
-                style={{ height: "fit-content", marginBottom: "40px" }}
-                className="container"
-              >
-                <div className="card-experience">
-                  <h2 className="text-white">My Experience</h2>
-                  <div className="d-flex flex-wrap">
-                    {userData.experience.map((job) => (
-                      <div key={job._id} className="repos ">
-                        <Experience
-                          jobtitle={job.jobtitle}
-                          company={job.company}
-                          year={job.year}
-                          location={job.location}
-                          description={job.jobdescription}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
-            {/* Education **************************************8 */}
-            {userData.education.length > 0 ? (
-              <div
-                style={{ height: "fit-content", marginBottom: "40px" }}
-                className="container"
-              >
-                <div className="card-experience">
-                  <h2 className="text-white">My Education</h2>
-                  <div className="d-flex flex-wrap">
-                    {userData.education.map((clg) => (
-                      <div key={clg._id} className="repos ">
-                        <Education
-                          name={clg.clgname}
-                          degree={clg.degree}
-                          year={clg.year}
-                          gpa={clg.gpa}
-                          description={clg.activities}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
-            {/* Skills **************************************8 */}
-            {userData.skills.length > 0 ? (
-              <div
-                style={{ height: "fit-content", marginBottom: "40px" }}
-                className="container"
-              >
-                <div className="card-experience">
-                  <h2 className="text-white">My Skills</h2>
-                  <hr className="line" />
-                  <ul className="tag">
-                    {userData.skills.map((skill, index) => (
-                      <li key={index} className="tag__name mx-2">
-                        {skill}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
-            {/* Honors & Awards **************************************8 */}
-            {userData.honors ? (
-              <div
-                style={{ height: "fit-content", marginBottom: "40px" }}
-                className="container"
-              >
-                <div className="card-experience">
-                  <h2 className="text-white">Honors & Awards</h2>
-                  <div className="card__border" />
-                  <div className="card_title__container">
-                    <hr className="line" />
-                    <p className="card-description">{userData.honors}</p>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
-
-            {/*GitHub Repos*/}
-            {userData.github && repos.length > 0 && (
-              <div
-                style={{ height: "fit-content", marginBottom: "40px" }}
-                className="container"
-              >
-                <div className="card-experience">
-                  <h2 className="text-white">My GitHub Repos</h2>
-                  <div className="d-flex flex-wrap">
-                    {repos.map((repo) => (
-                      <div key={repo.id} className="repos ">
-                        <Repo
-                          html_url={repo.html_url}
-                          name={repo.name}
-                          description={repo.description}
-                          visibility={repo.private ? "private" : "public"}
-                          pushed_at={repo.pushed_at.split("T")[0]}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-            {/* 3D Model */}
-            <div className="container m-3">
-              <script
-                type="module"
-                src="https://unpkg.com/@splinetool/viewer@1.9.3/build/spline-viewer.js"
-              ></script>
-              <spline-viewer url="https://prod.spline.design/VDZ9QT0aB6BHadZV/scene.splinecode"></spline-viewer>
             </div>
           </div>
+          {/* About ******************************************** */}
+          <div className="about col-xxl-8 p-4 ">
+            <div className="row flex-lg-row-reverse align-items-center p-3 text-light justify-content-center">
+              <div className="col-10 col-sm-4 col-lg-4">
+                <div className="slide-side d-block m-5 d-flex flex-column justify-content-center">
+                  <Socials
+                    instagram={userData.instagram}
+                    linkedin={userData.linkedin}
+                    github={userData.github}
+                  />
+                  <button
+                    onClick={handleBlog}
+                    className="btn-lg m-3 px-4 me-md-2 login-btn mt-5"
+                    style={{ width: "90%", height: "50px" }}
+                  >
+                    My Blogs
+                  </button>
+                </div>
+              </div>
+              <div
+                className="col-lg-6 d-flex text-light flex-column align-items-center p-4 justify-content-center"
+                style={{
+                  backgroundColor: "rgba(255, 255, 255, 0.22)",
+                  borderRadius: "40px",
+                }}
+              >
+                <h1 className="display-2 fw-bold text-white">About Me</h1>
+                <p className="fs-6">{userData.about}</p>
+                <div className="d-flex text-light flex-row align-items-center"></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Experience **************************************8 */}
+          {userData.experience.length > 0 ? (
+            <div
+              style={{
+                height: "fit-content",
+                marginBottom: "40px",
+                backgroundColor: "black",
+                padding: "5%",
+              }}
+              className=""
+            >
+              <h1 className="display-2 fw-bold text-white">My Experiences</h1>
+              <div className="">
+                <div className="d-flex flex-wrap">
+                  {userData.experience.map((job) => (
+                    <div key={job._id}>
+                      <Experience
+                        jobtitle={job.jobtitle}
+                        company={job.company}
+                        year={job.year}
+                        location={job.location}
+                        description={job.jobdescription}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+          {/* Education **************************************8 */}
+          {userData.education.length > 0 ? (
+            <div
+              style={{ height: "fit-content", marginBottom: "40px" }}
+              className="container"
+            >
+              <div className="card-experience">
+                <h2 className="text-white">My Education</h2>
+                <div className="d-flex flex-wrap">
+                  {userData.education.map((clg) => (
+                    <div key={clg._id} className="repos ">
+                      <Education
+                        name={clg.clgname}
+                        degree={clg.degree}
+                        year={clg.year}
+                        gpa={clg.gpa}
+                        description={clg.activities}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+          {/* Skills **************************************8 */}
+          {userData.skills.length > 0 ? (
+            <div
+              style={{ height: "fit-content", marginBottom: "40px" }}
+              className="container"
+            >
+              <div className="card-experience">
+                <h2 className="text-white">My Skills</h2>
+                <hr className="line" />
+                <ul className="tag">
+                  {userData.skills.map((skill, index) => (
+                    <li key={index} className="tag__name mx-2">
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+          {/* Honors & Awards **************************************8 */}
+          {userData.honors ? (
+            <div
+              style={{ height: "fit-content", marginBottom: "40px" }}
+              className="container"
+            >
+              <div className="card-experience">
+                <h2 className="text-white">Honors & Awards</h2>
+                <div className="card__border" />
+                <div className="card_title__container">
+                  <hr className="line" />
+                  <p className="card-description">{userData.honors}</p>
+                </div>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {/*GitHub Repos*/}
+          {userData.github && repos.length > 0 && (
+            <div
+              style={{ height: "fit-content", marginBottom: "40px" }}
+              className="container"
+            >
+              <div className="card-experience">
+                <h2 className="text-white">My GitHub Repos</h2>
+                <div className="d-flex flex-wrap">
+                  {repos.map((repo) => (
+                    <div key={repo.id} className="repos ">
+                      <Repo
+                        html_url={repo.html_url}
+                        name={repo.name}
+                        description={repo.description}
+                        visibility={repo.private ? "private" : "public"}
+                        pushed_at={repo.pushed_at.split("T")[0]}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+          {/* 3D Model */}
+          {/* <div className="container m-3">
+            <script
+              type="module"
+              src="https://unpkg.com/@splinetool/viewer@1.9.3/build/spline-viewer.js"
+            ></script>
+            <spline-viewer url="https://prod.spline.design/VDZ9QT0aB6BHadZV/scene.splinecode"></spline-viewer>
+          </div> */}
         </>
       ) : (
         <p>No user data found</p>

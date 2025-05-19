@@ -12,6 +12,11 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+@media (max-width: 768px) {
+  .texts {
+    font-size: 10px;
+  }
+}
 
 .App-header {
   background-color: #282c34;
@@ -38,14 +43,23 @@
 }
 
 body {
-  background: linear-gradient(to right, #c2c2db, #c7a3c7);
+  background-image: url("./images/bg.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .home {
+  margin-top: 10vh;
+  margin-bottom: 4vh;
   height: 85vh;
+  width: 90%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.22);
 }
 
 .banner-img {
@@ -75,9 +89,9 @@ body {
   height: 3em;
   line-height: 2em;
   text-align: center;
-  background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
-  background-size: 300%;
-  border-radius: 30px;
+  /* background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4); */
+  background-size: 100%;
+  border-radius: 15px;
   z-index: 1;
 }
 
@@ -106,7 +120,7 @@ body {
   z-index: -1;
   background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
   background-size: 400%;
-  border-radius: 35px;
+  border-radius: 15px;
   transition: 1s;
 }
 
@@ -116,6 +130,14 @@ body {
 
 .login-btn:active {
   background: linear-gradient(32deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+}
+
+/* ***************************************** */
+
+.about {
+  background-color: #000;
+  width: 100%;
+  height: fit-content;
 }
 
 /* ***************************************** */
@@ -385,6 +407,7 @@ body {
   }
 }
 /* ***************************************** */
+
 .card-experience {
   --white: #f0f0f0; /* Light gray for text or elements */
   --black: #2c2c2c; /* Dark gray for text or borders */
@@ -622,6 +645,12 @@ ul {
   background-color: #ff0000;
 }
 
+/* ****************************************** */
+
+.container-exp {
+  margin: 10px;
+}
+
 /* ***************************************** */
 
 .repos {
@@ -786,7 +815,7 @@ ul {
     #333,
     #111
   ); /* Dark gradient background */
-  border-radius: 50px;
+  border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 20px #8839ff; /* Glowing effect */
   padding: 10px 15px;
 }
@@ -851,8 +880,8 @@ ul {
 /* ***************************************** */
 .card-socials {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 250px;
   background: lightgrey;
   border-radius: 30px;
   overflow: hidden;
