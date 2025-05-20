@@ -150,20 +150,19 @@ export function Blogs(props) {
     <>
       <div className="container-repo">
         <div className="box slide-up">
-          <span className="title my-4 text-wrap">
+          <h2 className="fw-bold text-wrap">
             {props.title}
             <span
               className={`badge mx-2 ${props.invisible} rounded-pill text-bg-success`}
             >
               Latest
             </span>
-          </span>
+          </h2>
           <div>
-            <strong className="my-2">by {props.username}</strong>
-            <span className="my-2">Date Published: </span>{" "}
-            <span>{props.date}</span>
+            <p className="texts">by {props.username}</p>
+            <p className="my-2 texts">Date Published: {props.date}</p>
             <hr className="line" />
-            <p className="my-2">{props.content}</p>
+            <p className="my-3 mb-4 fw-light texts">{props.content}</p>
             <button
               onClick={props.deleteBlog}
               type="submit"

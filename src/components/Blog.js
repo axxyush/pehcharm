@@ -59,7 +59,9 @@ function Blog() {
                 className="container"
               >
                 <div className="card-experience">
-                  <h2 className="text-white">My Blogs</h2>
+                  <h1 className="display-2 fw-bold text-white  text-center mt-4">
+                    My Blogs
+                  </h1>
                   <div className="d-flex flex-wrap flex-column">
                     {blogData
                       .slice()
