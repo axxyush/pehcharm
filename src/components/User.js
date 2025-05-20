@@ -252,6 +252,16 @@ function User() {
         {/* Update Projects Section */}
         <div className="container-form">
           <div className="heading">Update Projects</div>
+          <div
+            className="position text-light"
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0.22)",
+              borderRadius: "10px",
+              width: "30%",
+              marginRight: "20px",
+              padding: "20px",
+            }}
+          ></div>
           <form onSubmit={handleSubmit(onSubmit)} className="form">
             {projectFields.map((field, index) => (
               <div key={field.id} className="project-entry">

@@ -29,20 +29,20 @@ export function Repo(props) {
 export function Education(props) {
   return (
     <>
-      <div className="container-repo ">
-        <div className="box slide-up">
-          <span className="title my-4 text-wrap">{props.name}</span>
-          <div>
-            <strong className="my-2">GPA: {props.gpa}</strong>
-            <span className="my-2">Graduation Year: </span>{" "}
-            <span>{props.year}</span>
-            <br />
-            <span className="my-2">Degree: </span> <span>{props.degree}</span>
-            <hr className="line" />
-            <p className="my-2">
-              <b>Description:</b> {props.description}
-            </p>
-          </div>
+      <div className="container-repo">
+        <div className="box slide-up p-3">
+          <span className="texts text-wrap">
+            <b>{props.name}</b>
+          </span>
+          <span className="texts">Degree: props.degree</span>
+          <span className="texts">GPA: {props.gpa}</span>
+          <span className="texts">
+            <i>Graduation Year: {props.year}</i>
+          </span>
+          <hr className="line" />
+          <p className="texts fw-light">
+            <b>Description:</b> {props.description}
+          </p>
         </div>
       </div>
     </>
@@ -98,6 +98,46 @@ export function Experience(props) {
           <p className="my-2 text-light">
             <b className="texts">{props.company}</b>
           </p>
+        </div>
+      </div>
+      <hr />
+    </>
+  );
+}
+export function Project(props) {
+  return (
+    <>
+      <div className="container-exp d-flex flex-column">
+        <div className="exp1 slide-up d-flex flex-row">
+          <div
+            className="description text-light"
+            style={{
+              background: `linear-gradient(45deg, #405de6, rgb(155, 81, 219), #b33ab4, #c135b4, #e1306c, #fd1f1f)`,
+              borderRadius: "10px",
+              padding: "20px",
+            }}
+          >
+            <span className="texts text-wrap font-monospace">
+              <b>{props.title}</b>
+            </span>{" "}
+            <br />
+            <span className="texts ">
+              <b>{props.skills}</b>
+            </span>{" "}
+            <br />
+            <span className="texts">
+              <i>{props.time}</i>
+            </span>
+            <br />
+            <hr className="line" />
+            <p className="my-2 texts fw-light">{props.description}</p>
+            <a
+              className="text-decoration-none texts text-dark"
+              href={props.link}
+            >
+              <i className="fa-sharp-duotone fa-solid fa-link"></i> View Project
+            </a>
+          </div>
         </div>
       </div>
       <hr />

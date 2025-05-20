@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { Repo, Education, Experience } from "./Repo";
+import { Repo, Education, Experience, Project } from "./Repo";
 import Socials from "./Socials";
 import Error from "./Error";
 import pehcharm from "../images/pehcharm-logo.png";
@@ -140,13 +140,15 @@ function Profile() {
             <div
               style={{
                 height: "fit-content",
-                marginBottom: "40px",
+                paddingBottom: "40px",
                 backgroundColor: "black",
                 padding: "5%",
               }}
               className=""
             >
-              <h1 className="display-2 fw-bold text-white">My Experiences</h1>
+              <h1 className="display-2 fw-bold text-white m-4 text-center">
+                My Experiences
+              </h1>
               <div className="">
                 <div className="d-flex flex-wrap">
                   {userData.experience.map((job) => (
@@ -166,14 +168,84 @@ function Profile() {
           ) : (
             ""
           )}
+
+          {/* Projects **************************************8 */}
+          {userData.project.length > 0 ? (
+            <div
+              style={{
+                height: "fit-content",
+                marginBottom: "40px",
+                backgroundColor: "black",
+                padding: "5%",
+              }}
+              className=""
+            >
+              <h1 className="display-2 fw-bold text-white m-4 text-center">
+                My Projects
+              </h1>
+              <div
+                style={{
+                  background: `linear-gradient(45deg,rgb(11, 16, 40), rgb(155, 81, 219, .22),rgb(38, 12, 38),rgb(34, 10, 32),rgb(40, 13, 22),rgb(54, 16, 16))`,
+                  borderRadius: "10px",
+                  padding: "30px",
+                }}
+              >
+                <div className="d-flex flex-wrap">
+                  {userData.project.map((project) => (
+                    <div key={project._id}>
+                      <Project
+                        title={project.title}
+                        skills={project.skills}
+                        time={project.time}
+                        description={project.description}
+                        link={project.link}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {/* Skills **************************************8 */}
+          {userData.skills.length > 0 ? (
+            <div
+              style={{ height: "fit-content", marginBottom: "40px" }}
+              className="container home p-5"
+            >
+              <div className="">
+                <h1 className="display-2 fw-bold text-white  text-center">
+                  My Skills
+                </h1>
+                <hr className="line" />
+                <ul className="tag mt-4">
+                  {userData.skills.map((skill, index) => (
+                    <li key={index} className="tag__name mx-2">
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+
           {/* Education **************************************8 */}
           {userData.education.length > 0 ? (
             <div
-              style={{ height: "fit-content", marginBottom: "40px" }}
-              className="container"
+              style={{
+                backgroundColor: "black",
+                padding: "30px",
+              }}
+              className=""
             >
               <div className="card-experience">
-                <h2 className="text-white">My Education</h2>
+                <h1 className="display-2 fw-bold text-white  text-center mt-4">
+                  My Education
+                </h1>
                 <div className="d-flex flex-wrap">
                   {userData.education.map((clg) => (
                     <div key={clg._id} className="repos ">
@@ -192,40 +264,24 @@ function Profile() {
           ) : (
             ""
           )}
-          {/* Skills **************************************8 */}
-          {userData.skills.length > 0 ? (
-            <div
-              style={{ height: "fit-content", marginBottom: "40px" }}
-              className="container"
-            >
-              <div className="card-experience">
-                <h2 className="text-white">My Skills</h2>
-                <hr className="line" />
-                <ul className="tag">
-                  {userData.skills.map((skill, index) => (
-                    <li key={index} className="tag__name mx-2">
-                      {skill}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          ) : (
-            ""
-          )}
+
           {/* Honors & Awards **************************************8 */}
           {userData.honors ? (
-            <div
-              style={{ height: "fit-content", marginBottom: "40px" }}
-              className="container"
-            >
-              <div className="card-experience">
-                <h2 className="text-white">Honors & Awards</h2>
-                <div className="card__border" />
-                <div className="card_title__container">
-                  <hr className="line" />
-                  <p className="card-description">{userData.honors}</p>
-                </div>
+            <div className="p-5" style={{ backgroundColor: "black" }}>
+              <div
+                className=""
+                style={{
+                  background: `linear-gradient(45deg, #405de6, rgb(155, 81, 219), #b33ab4, #c135b4, #e1306c, #fd1f1f)`,
+                  borderRadius: "10px",
+                  padding: "40px",
+                  marginBottom: "50px",
+                }}
+              >
+                <h1 className="display-2 fw-bold text-white  text-center mt-4">
+                  Honors & Awards
+                </h1>
+                <hr className="line" />
+                <p className="text-light">{userData.honors}</p>
               </div>
             </div>
           ) : (
@@ -235,11 +291,13 @@ function Profile() {
           {/*GitHub Repos*/}
           {userData.github && repos.length > 0 && (
             <div
-              style={{ height: "fit-content", marginBottom: "40px" }}
+              style={{ height: "fit-content", marginBottom: "50px" }}
               className="container"
             >
               <div className="card-experience">
-                <h2 className="text-white">My GitHub Repos</h2>
+                <h1 className="display-2 fw-bold text-white  text-center mt-5 mb-4">
+                  GitHub Repositories
+                </h1>
                 <div className="d-flex flex-wrap">
                   {repos.map((repo) => (
                     <div key={repo.id} className="repos ">
@@ -257,13 +315,13 @@ function Profile() {
             </div>
           )}
           {/* 3D Model */}
-          {/* <div className="container m-3">
+          <div className="container">
             <script
               type="module"
               src="https://unpkg.com/@splinetool/viewer@1.9.3/build/spline-viewer.js"
             ></script>
             <spline-viewer url="https://prod.spline.design/VDZ9QT0aB6BHadZV/scene.splinecode"></spline-viewer>
-          </div> */}
+          </div>
         </>
       ) : (
         <p>No user data found</p>
