@@ -1,6 +1,41 @@
 import React from "react";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useAuth } from "../context/AuthProvider";
 
 function Notifications() {
+  const [authUser] = useAuth();
+  const [recs, setRecs] = React.useState([]);
+
+  React.useEffect(() => {
+    axios
+      .get(`https://pehcharm-backend.onrender.com/recommendations/getrec`, {
+        params: { toUser: authUser.username, status: "pending" },
+      })
+      .then((res) => setRecs(res.data))
+      .catch((err) => console.error("Failed to load recs:", err));
+  }, [authUser.username]);
+
+  const updateRec = async (recId, show) => {
+    try {
+      await axios.patch(
+        `https://pehcharm-backend.onrender.com/recommendations/${recId}`,
+        { show }
+      );
+      // remove it from the pending list
+      setRecs((rs) => rs.filter((r) => r._id !== recId));
+      if (show === true) {
+        toast.success("Recommendation Accepted successfully!");
+      } else {
+        toast.success("Recommendation Rejected!");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const notificationCount = recs.length;
+
   return (
     <>
       <div
@@ -21,58 +56,28 @@ function Notifications() {
           }}
           className="d-flex p-4 texts text-light flex-column"
         >
-          <h1>(In progress - Placeholder Values)</h1>
-          <p className="mt-2">
-            <b>Aryan posted a Recommendation for you</b> - "Lorem ipsum dolor
-            sit, amet consectetur adipisicing elit. Porro quos rem sit quasi
-            eius repudiandae quas officia quam? Doloremque, beatae vitae facilis
-            temporibus quam quia officia blanditiis vel non, fugit odit
-            praesentium ullam dolorem nisi quibusdam error rem! Illum vel at,
-            inventore omnis aperiam pariatur iure non totam asperiores
-            excepturi?"{" "}
-            <button
-              type="button"
-              className="btn btn-outline-success btn-sm texts"
-            >
-              Accept
-            </button>{" "}
-            <button
-              type="button"
-              className="btn btn-outline-danger btn-sm texts"
-            >
-              Reject
-            </button>
-          </p>
-          <hr />
-          <p className="mt-2">
-            <b>Aza posted a Recommendation for you</b> - "Lorem ipsum dolor sit,
-            amet consectetur adipisicing elit. Porro quos rem sit quasi eius
-            repudiandae quas officia quam? Doloremque, beatae vitae facilis
-            temporibus quam quia officia blanditiis vel non, fugit odit
-            praesentium ullam dolorem nisi quibusdam error rem! Illum vel at,
-            inventore omnis aperiam pariatur iure non totam asperiores
-            excepturi?"{" "}
-            <button
-              type="button"
-              className="btn btn-outline-success btn-sm texts"
-            >
-              Accept
-            </button>{" "}
-            <button
-              type="button"
-              className="btn btn-outline-danger btn-sm texts"
-            >
-              Reject
-            </button>
-          </p>
-          <hr />
-          <p className="mt-2">
-            Chirag viewed your profile!{" "}
-            <button type="button" className="btn btn-outline-info btn-sm texts">
-              Chirag's Profile
-            </button>{" "}
-          </p>
-          <hr />
+          {recs.length === 0 && (
+            <p className="text-center">
+              You have {notificationCount} new notifications!
+            </p>
+          )}
+
+          {recs.map((r) => (
+            <div key={r._id} className="mb-4">
+              <p className="mt-2">
+                <b>{r.fromUser} posted a Recommendation for you</b> - "
+                {r.content}"{" "}
+                <button
+                  type="button"
+                  onClick={() => updateRec(r._id, true)}
+                  className="btn btn-outline-success btn-sm texts"
+                >
+                  Accept
+                </button>{" "}
+              </p>
+              <hr />
+            </div>
+          ))}
         </div>
       </div>
     </>

@@ -52,62 +52,69 @@ function AddBlog() {
 
   return (
     <>
-      <div className="form-container">
-        <div className="container-form">
-          <div className="heading">Upload Blog</div>
-          {loading ? (
-            <div className="home">
-              <div className="spinner-border text-dark" role="status">
-                <span className="visually-hidden">Loading...</span>
+      <div
+        className="container mb-5 d-flex justify-content-center"
+        style={{ marginTop: "15vh" }}
+      >
+        <div style={{ width: "100%" }} className="container-repo">
+          <div style={{ width: "100%" }} className="box p-4">
+            <h1 className="display-10 fw-bold text-white  text-center">
+              Upload Blog
+            </h1>
+            {loading ? (
+              <div className="home">
+                <div className="spinner-border text-dark" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
               </div>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit(onSubmit)} className="form">
-              <p>Title:</p>
-              <input
-                placeholder="Title"
-                id="title"
-                name="title"
-                type="input"
-                className="input"
-                {...register("title", { required: true })}
-              />
-              {errors.title && (
-                <span className="text-danger">This field is required</span>
-              )}
-              <p>Date:</p>
-              <input
-                placeholder="Date"
-                id="date"
-                name="date"
-                type="date"
-                className="input"
-                defaultValue={today}
-                {...register("date", { required: true })}
-              />
-              {errors.date && (
-                <span className="text-danger">This field is required</span>
-              )}
+            ) : (
+              <form onSubmit={handleSubmit(onSubmit)} className="form">
+                <p>Title:</p>
+                <input
+                  placeholder="Title"
+                  id="title"
+                  name="title"
+                  type="input"
+                  className="input"
+                  {...register("title", { required: true })}
+                />
+                {errors.title && (
+                  <span className="text-danger">This field is required</span>
+                )}
+                <p>Date:</p>
+                <input
+                  placeholder="Date"
+                  id="date"
+                  name="date"
+                  type="date"
+                  className="input"
+                  defaultValue={today}
+                  {...register("date", { required: true })}
+                />
+                {errors.date && (
+                  <span className="text-danger">This field is required</span>
+                )}
 
-              <p>Content:</p>
-              <textarea
-                placeholder="Content"
-                id="content"
-                name="content"
-                className="input"
-                {...register("content", { required: true })}
-                rows={5}
-              />
-              {errors.content && (
-                <span className="text-danger">This field is required</span>
-              )}
-              <input
-                value="Create Blog"
-                type="submit"
-                className="login-button"
-              />
-            </form>
-          )}
+                <p>Content:</p>
+                <textarea
+                  placeholder="Content"
+                  id="content"
+                  name="content"
+                  className="input"
+                  {...register("content", { required: true })}
+                  rows={5}
+                />
+                {errors.content && (
+                  <span className="text-danger">This field is required</span>
+                )}
+                <input
+                  value="Upload"
+                  type="submit"
+                  className="btn btn-success my-2"
+                />
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </>

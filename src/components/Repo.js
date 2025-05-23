@@ -145,6 +145,44 @@ export function Project(props) {
   );
 }
 
+export function Recommendation(props) {
+  return (
+    <>
+      <div className="container-exp d-flex flex-column">
+        <div className="exp1 slide-up d-flex flex-row">
+          <div
+            className="description text-light"
+            style={{
+              background: `linear-gradient(45deg, #405de6, rgb(155, 81, 219), #b33ab4, #c135b4, #e1306c, #fd1f1f)`,
+              borderRadius: "10px",
+              padding: "20px",
+            }}
+          >
+            <span className="texts text-wrap font-monospace">
+              <b>Recommended by {props.fromUser}</b>
+            </span>{" "}
+            <br />
+            <span className="texts ">
+              <b>Date - {props.date}</b>
+            </span>{" "}
+            <br />
+            <hr className="line" />
+            <p className="my-2 texts fw-light">{props.content}</p>
+            <a
+              className="text-decoration-none texts text-dark"
+              href={props.fromUser}
+            >
+              <i className="fa-sharp-duotone fa-solid fa-link"></i> View{" "}
+              {props.fromUser}'s Profile
+            </a>
+          </div>
+        </div>
+      </div>
+      <hr />
+    </>
+  );
+}
+
 export function Blogs(props) {
   return (
     <>

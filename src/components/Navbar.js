@@ -5,11 +5,28 @@ import Login from "./Login";
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthProvider";
 import Search from "./Search";
+import axios from "axios";
 
 function Navbar() {
   const [authUser] = useAuth();
   let location = useLocation();
   const [sticky, setSticky] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(0);
+
+  useEffect(() => {
+    if (!authUser?.username) return;
+
+    axios
+      .get("https://pehcharm-backend.onrender.com/recommendations/getrec", {
+        params: { toUser: authUser.username, status: "pending" },
+      })
+      .then((res) => {
+        setNotificationCount(res.data.length);
+      })
+      .catch((err) => {
+        console.error("Failed to load notification count:", err);
+      });
+  }, [authUser.username]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -94,7 +111,7 @@ function Navbar() {
                 )}
               </li>
 
-              {/* <li
+              <li
                 className={`nav-item ${
                   location.pathname === `/${authUser?.username}/notifications`
                     ? "active"
@@ -107,14 +124,18 @@ function Navbar() {
                     to={`/${authUser?.username}/notifications`}
                   >
                     Notifications
-                    <span class="position-absolute top-1 translate-middle badge rounded-pill bg-danger">
-                      3
-                    </span>
+                    {notificationCount === 0 ? (
+                      ""
+                    ) : (
+                      <span class="position-absolute top-1 translate-middle badge rounded-pill bg-danger">
+                        {notificationCount}
+                      </span>
+                    )}
                   </Link>
                 ) : (
                   ""
                 )}
-              </li> */}
+              </li>
               <li
                 className={`nav-item ${
                   location.pathname === `/${authUser?.username}` ? "active" : ""

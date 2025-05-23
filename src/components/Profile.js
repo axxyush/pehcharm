@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { Repo, Education, Experience, Project } from "./Repo";
+import { Repo, Education, Experience, Project, Recommendation } from "./Repo";
 import Socials from "./Socials";
 import Error from "./Error";
 import pehcharm from "../images/pehcharm-logo.png";
@@ -49,7 +49,7 @@ function Profile() {
 
   useEffect(() => {
     axios
-      .get("/recommendations/getrec", {
+      .get("https://pehcharm-backend.onrender.com/recommendations/getrec", {
         params: { toUser: username, status: "approved" },
       })
       .then((res) => setRecs(res.data))
@@ -307,22 +307,44 @@ function Profile() {
           ) : (
             ""
           )}
-          {/* Recommendations */}
-          <div className="container mt-5">
-            <h3 className="text-white">Recommendations</h3>
-            {recs.length > 0 ? (
-              recs.map((r) => (
-                <blockquote key={r._id} className="blockquote text-light">
-                  <p>{r.content}</p>
-                  <footer className="blockquote-footer text-white">
-                    {r.fromUser}, {new Date(r.date).toLocaleDateString()}
-                  </footer>
-                </blockquote>
-              ))
-            ) : (
-              <p className="text-light">No recommendations yet.</p>
-            )}
-          </div>
+          {/* Recommendations **************************************8 */}
+          {recs.length > 0 ? (
+            <div
+              style={{
+                height: "fit-content",
+                marginBottom: "40px",
+                backgroundColor: "black",
+                padding: "4%",
+              }}
+              className=""
+            >
+              <h1 className="display-2 fw-bold text-white  text-center">
+                Recommendations
+              </h1>
+              <div
+                style={{
+                  background: `linear-gradient(45deg,rgb(11, 16, 40), rgb(155, 81, 219, .22),rgb(38, 12, 38),rgb(34, 10, 32),rgb(40, 13, 22),rgb(54, 16, 16))`,
+                  borderRadius: "10px",
+                  padding: "30px",
+                }}
+              >
+                <div className="d-flex flex-wrap">
+                  {recs.map((recs) => (
+                    <div key={recs._id}>
+                      <Recommendation
+                        fromUser={recs.fromUser}
+                        date={new Date(recs.date).toLocaleDateString()}
+                        content={recs.content}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+
           {/*GitHub Repos*/}
           {userData.github && repos.length > 0 && (
             <div
@@ -352,7 +374,7 @@ function Profile() {
             // Recs
           )}
           {/* 3D Model */}
-          <div className="container">
+          <div className="container mb-5">
             <script
               type="module"
               src="https://unpkg.com/@splinetool/viewer@1.9.3/build/spline-viewer.js"

@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 
 function User() {
   const [authUser, setAuthUser] = useAuth();
-  const [recs, setRecs] = React.useState(authUser.recommendation || []);
 
   // Initialize form with default values, including experience as an array
   const { register, handleSubmit, control, reset } = useForm({
@@ -79,18 +78,6 @@ function User() {
     control,
     name: "skills",
   });
-
-  const updateRec = async (recId, show) => {
-    try {
-      await axios.patch(
-        `https://pehcharm-backend.onrender.com/recommendations/${recId}`,
-        { show }
-      );
-      setRecs((rs) => rs.map((r) => (r._id === recId ? { ...r, show } : r)));
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   const onSubmit = async (data) => {
     try {
@@ -655,42 +642,6 @@ function User() {
                 />
               </form>
             </div>
-          </div>
-        </div>
-
-        {/* Recommendations */}
-        <div style={{ width: "100%" }} className="container-repo">
-          <div style={{ width: "100%" }} className="box p-4">
-            <h1 className="display-10 fw-bold text-white  text-center">
-              Recommendations
-            </h1>
-            {recs.length === 0 && <p>No recommendations yet.</p>}
-
-            {recs.map((r) => (
-              <div key={r._id} className="mb-4">
-                <b>{r.fromUser}</b>
-                <i> Visible – {r.show ? "Yes" : "No"}</i>
-                <i> Date – {new Date(r.date).toLocaleDateString()}</i>
-                <p>{r.content}</p>
-                <div>
-                  <div>
-                    <button
-                      onClick={() => updateRec(r._id, true)}
-                      className="btn btn-sm btn-success me-2"
-                    >
-                      Accept
-                    </button>
-                    <button
-                      onClick={() => updateRec(r._id, false)}
-                      className="btn btn-sm btn-danger"
-                    >
-                      Reject
-                    </button>
-                  </div>
-                </div>
-                <hr />
-              </div>
-            ))}
           </div>
         </div>
       </div>

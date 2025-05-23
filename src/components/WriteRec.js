@@ -8,6 +8,10 @@ export default function WriteRec(props) {
 
   const handleSubmit = async () => {
     if (!message.trim()) return;
+    if (props.toUser === props.fromUser) {
+      toast.error("You cannot recommend yourself");
+      return;
+    }
     setLoading(true); // ← start spinner
     try {
       await axios.post(
