@@ -9,24 +9,21 @@ import axios from "axios";
 
 function Navbar() {
   const [authUser] = useAuth();
-  let location = useLocation();
-  const [sticky, setSticky] = useState(false);
+  const username = authUser?.username;
   const [notificationCount, setNotificationCount] = useState(0);
 
-  useEffect(() => {
-    if (!authUser?.username) return;
+  let location = useLocation();
+  const [sticky, setSticky] = useState(false);
 
+  useEffect(() => {
+    if (!username) return;
     axios
       .get("https://pehcharm-backend.onrender.com/recommendations/getrec", {
-        params: { toUser: authUser.username, status: "pending" },
+        params: { toUser: username, status: "pending" },
       })
-      .then((res) => {
-        setNotificationCount(res.data.length);
-      })
-      .catch((err) => {
-        console.error("Failed to load notification count:", err);
-      });
-  }, [authUser.username]);
+      .then((res) => setNotificationCount(res.data.length))
+      .catch((err) => console.error("Failed to load notification count:", err));
+  }, [username]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -127,8 +124,8 @@ function Navbar() {
                     {notificationCount === 0 ? (
                       ""
                     ) : (
-                      <span class="position-absolute top-1 translate-middle badge rounded-pill bg-danger">
-                        {notificationCount}
+                      <span className="position-absolute top-1 translate-middle badge rounded-pill bg-danger">
+                        {authUser ? notificationCount : ""}
                       </span>
                     )}
                   </Link>

@@ -48,6 +48,7 @@ function Profile() {
   }, [userData]);
 
   useEffect(() => {
+    if (!username) return;
     axios
       .get("https://pehcharm-backend.onrender.com/recommendations/getrec", {
         params: { toUser: username, status: "approved" },
