@@ -57,6 +57,10 @@ function Profile() {
       .catch((err) => console.error("Rec fetch failed:", err));
   }, [username]);
 
+  const handleSignUp = () => {
+    navigate("/signup");
+  };
+
   if (loading)
     return (
       <div className="home">
@@ -111,23 +115,37 @@ function Profile() {
                     className="fa-solid fa-envelope mx-2"
                   ></i>
                   {userData.email}
-                  <button
-                    type="button"
-                    className="btn btn-outline-light btn-sm m-3"
-                    data-bs-toggle="modal"
-                    data-bs-target="#recModal"
-                  >
-                    Recommend Me!
-                  </button>
+                  {authUser ? (
+                    <button
+                      type="button"
+                      className="btn btn-outline-light btn-sm m-3"
+                      data-bs-toggle="modal"
+                      data-bs-target="#recModal"
+                    >
+                      Recommend Me!
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="btn btn-outline-light btn-sm m-3"
+                      onClick={handleSignUp}
+                    >
+                      Sign up to recommend!
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
           </div>
-          <WriteRec
-            name={userData.name}
-            toUser={userData.username}
-            fromUser={authUser.username}
-          />
+          {authUser ? (
+            <WriteRec
+              name={userData.name}
+              toUser={userData.username}
+              fromUser={authUser.username}
+            />
+          ) : (
+            ""
+          )}
           {/* About ******************************************** */}
           <div className="about col-xxl-8 p-4 ">
             <div className="row flex-lg-row-reverse align-items-center p-3 text-light justify-content-center">
