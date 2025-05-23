@@ -13,7 +13,7 @@ function Search() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `https://pehcharm-backend.onrender.com/user/${data.username}`
+        `http://localhost:4001/user/${data.username}`
       );
 
       if (response.data) {

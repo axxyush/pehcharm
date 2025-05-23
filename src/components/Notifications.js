@@ -9,7 +9,7 @@ function Notifications() {
 
   React.useEffect(() => {
     axios
-      .get(`https://pehcharm-backend.onrender.com/recommendations/getrec`, {
+      .get(`http://localhost:4001/recommendations/getrec`, {
         params: { toUser: authUser.username, status: "pending" },
       })
       .then((res) => setRecs(res.data))
@@ -18,10 +18,9 @@ function Notifications() {
 
   const updateRec = async (recId, show) => {
     try {
-      await axios.patch(
-        `https://pehcharm-backend.onrender.com/recommendations/${recId}`,
-        { show }
-      );
+      await axios.patch(`http://localhost:4001/recommendations/${recId}`, {
+        show,
+      });
       // remove it from the pending list
       setRecs((rs) => rs.filter((r) => r._id !== recId));
       if (show === true) {

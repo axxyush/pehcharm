@@ -26,7 +26,7 @@ function Signup() {
 
     try {
       const res = await axios.post(
-        "https://pehcharm-backend.onrender.com/user/signup",
+        "http://localhost:4001/user/signup",
         userInfo
       );
       if (res.data) {
