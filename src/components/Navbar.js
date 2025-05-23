@@ -93,6 +93,28 @@ function Navbar() {
                   ""
                 )}
               </li>
+
+              {/* <li
+                className={`nav-item ${
+                  location.pathname === `/${authUser?.username}/notifications`
+                    ? "active"
+                    : ""
+                }  `}
+              >
+                {authUser ? (
+                  <Link
+                    className="nav-link position-relative"
+                    to={`/${authUser?.username}/notifications`}
+                  >
+                    Notifications
+                    <span class="position-absolute top-1 translate-middle badge rounded-pill bg-danger">
+                      3
+                    </span>
+                  </Link>
+                ) : (
+                  ""
+                )}
+              </li> */}
               <li
                 className={`nav-item ${
                   location.pathname === `/${authUser?.username}` ? "active" : ""
@@ -107,6 +129,7 @@ function Navbar() {
                 )}
               </li>
             </ul>
+
             <Search />
             {authUser ? (
               <Logout />

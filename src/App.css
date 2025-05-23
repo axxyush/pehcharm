@@ -181,80 +181,19 @@ body {
   flex-direction: column;
   align-self: center;
   justify-content: center;
+  width: 100%;
 }
 
 .form .input {
-  width: 100%;
-  background: white;
-  border: none;
-  padding: 15px 20px;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  box-shadow: #cff0ff 0px 10px 10px -5px;
-  border-inline: 2px solid transparent;
-}
-
-.form .input::-moz-placeholder {
-  color: rgb(170, 170, 170);
-}
-
-.form .input::placeholder {
-  color: rgb(170, 170, 170);
-}
-
-.form .input:focus {
-  outline: none;
-  border-inline: 2px solid #03a9f4;
-}
-
-.form p {
-  margin-left: 10px;
-  margin-bottom: -1px;
-  color: #324d5b;
-}
-
-.form .forgot-password {
-  display: block;
-  margin-top: 10px;
-  margin-left: 10px;
-}
-
-.form {
-  color: #000;
-}
-
-.form .forgot-password a {
-  font-size: 11px;
-  color: #0099ff;
-  text-decoration: none;
-}
-
-.form .login-button {
-  display: block;
-  width: 100%;
-  font-weight: bold;
-  background: linear-gradient(
-    45deg,
-    rgb(16, 137, 211) 0%,
-    rgb(18, 177, 209) 100%
-  );
+  background-color: #3c393c64;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
   color: white;
-  padding-block: 15px;
-  margin: 20px auto;
-  border-radius: 20px;
-  box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 20px 10px -15px;
-  border: none;
-  transition: all 0.2s ease-in-out;
+  width: 99%;
 }
-
-.form .login-button:hover {
-  transform: scale(1.03);
-  box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 23px 10px -20px;
-}
-
-.form .login-button:active {
-  transform: scale(0.95);
-  box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 15px 10px -10px;
+.form p {
+  font-weight: bold;
 }
 
 .social-account-container {
@@ -302,17 +241,6 @@ body {
   transform: scale(0.9);
 }
 
-.agreement {
-  display: block;
-  text-align: center;
-  margin-top: 15px;
-}
-
-.agreement a {
-  text-decoration: none;
-  color: #0099ff;
-  font-size: 9px;
-}
 /* ***************************************** */
 .custum-file-upload {
   height: 200px;
@@ -557,8 +485,8 @@ ul {
 }
 
 .container-repo .box {
-  width: fit-content;
-  height: max-content;
+  /* width: fit-content; */
+  /* height: max-content; */
   padding: 1rem;
   background-color: rgba(255, 255, 255, 0.074);
   border: 1px solid rgba(255, 255, 255, 0.222);

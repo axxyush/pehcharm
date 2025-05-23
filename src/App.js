@@ -16,6 +16,7 @@ import Profile from "./components/Profile";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import AddBlog from "./components/AddBlog";
 import Blog from "./components/Blog";
+import Notifications from "./components/Notifications";
 
 function App() {
   return (
@@ -48,6 +49,12 @@ function MainLayout() {
           element={<ProtectedRoute component={AddBlog} authUser={authUser} />}
         />
         <Route path="/:username/blogs" element={<Blog />} />
+        <Route
+          path="/:username/notifications"
+          element={
+            <ProtectedRoute component={Notifications} authUser={authUser} />
+          }
+        />
       </Routes>
       <Footer />
     </>

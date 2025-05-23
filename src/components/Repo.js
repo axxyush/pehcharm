@@ -10,7 +10,7 @@ export function Repo(props) {
           <div>
             <strong className="my-2">Visibility: {props.visibility}</strong>
             <p className="my-2">Description: {props.description}</p>
-            <span className="my-2">Pushed at: </span>{" "}
+            <span className="my-2">Last push at: </span>{" "}
             <span>{props.pushed_at}</span>
           </div>
           <Link
@@ -34,7 +34,7 @@ export function Education(props) {
           <span className="texts text-wrap">
             <b>{props.name}</b>
           </span>
-          <span className="texts">Degree: props.degree</span>
+          <span className="texts">Degree: {props.degree}</span>
           <span className="texts">GPA: {props.gpa}</span>
           <span className="texts">
             <i>Graduation Year: {props.year}</i>

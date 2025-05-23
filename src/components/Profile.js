@@ -5,6 +5,7 @@ import { Repo, Education, Experience, Project } from "./Repo";
 import Socials from "./Socials";
 import Error from "./Error";
 import pehcharm from "../images/pehcharm-logo.png";
+import WriteRec from "./WriteRec";
 
 function Profile() {
   const { username } = useParams();
@@ -13,10 +14,10 @@ function Profile() {
   const [error, setError] = useState(null);
   const [repos, setRepos] = useState([]);
   const navigate = useNavigate();
+  // const [recs, setRecs] = useState([]);
 
   useEffect(() => {
     // Fetch user data from the backend
-
     axios
       .get(`https://pehcharm-backend.onrender.com/user/${username}`)
       .then((response) => {
@@ -28,6 +29,18 @@ function Profile() {
         setLoading(false);
       });
   }, [username]);
+
+  // const respond = async (recId, show) => {
+  //   try {
+  //     await axios.patch(
+  //       `https://pehcharm-backend.onrender.com/user/${userData.username}/recommendation/${recId}`,
+  //       { show }
+  //     );
+  //     fetchRecs();
+  //   } catch (err) {
+  //     console.error("Error responding to rec:", err);
+  //   }
+  // };
 
   useEffect(() => {
     if (userData && userData.github) {
@@ -62,6 +75,17 @@ function Profile() {
   const handleBlog = () => {
     navigate(`/${username}/blogs`);
   };
+
+  // const fetchRecs = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       `https://pehcharm-backend.onrender.com/user/${userData.username}/recommendations`
+  //     );
+  //     setRecs(res.data);
+  //   } catch (err) {
+  //     console.error("Error fetching recs:", err);
+  //   }
+  // };
 
   return (
     <div>
@@ -98,10 +122,20 @@ function Profile() {
                     className="fa-solid fa-envelope mx-2"
                   ></i>
                   {userData.email}
+                  <button
+                    type="button"
+                    className="btn btn-outline-light btn-sm m-3"
+                    data-bs-toggle="modal"
+                    data-bs-target="#recModal"
+                  >
+                    Recommend Me!
+                  </button>
                 </div>
               </div>
             </div>
           </div>
+          <WriteRec username={userData.username} />
+
           {/* About ******************************************** */}
           <div className="about col-xxl-8 p-4 ">
             <div className="row flex-lg-row-reverse align-items-center p-3 text-light justify-content-center">
@@ -222,7 +256,7 @@ function Profile() {
                 <hr className="line" />
                 <ul className="tag mt-4">
                   {userData.skills.map((skill, index) => (
-                    <li key={index} className="tag__name mx-2">
+                    <li key={index} className="tag__name mx-2 ">
                       {skill}
                     </li>
                   ))}
@@ -314,6 +348,7 @@ function Profile() {
               </div>
             </div>
           )}
+
           {/* 3D Model */}
           <div className="container">
             <script

@@ -24,6 +24,13 @@ const projectSchema = new mongoose.Schema({
   description: String,
 });
 
+const recommendationSchema = new mongoose.Schema({
+  fromUser: { type: String, required: true },
+  content: { type: String, required: true, trim: true, maxlength: 1000 },
+  show: { type: Boolean, default: false },
+  date: { type: Date, default: Date.now },
+});
+
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
@@ -37,6 +44,7 @@ const userSchema = new mongoose.Schema({
   experience: [experienceSchema],
   skills: [String],
   project: [projectSchema],
+  recommendation: [recommendationSchema],
   honors: String,
 });
 
