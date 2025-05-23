@@ -18,7 +18,7 @@ export default function WriteRec(props) {
     setLoading(true); // ← start spinner
     try {
       await axios.post(
-        `https://pehcharm-backend.onrender.com/recommendations/addrec`,
+        `http://localhost:4001/recommendations/addrec`,
         {
           content: message,
           toUser: props.toUser,

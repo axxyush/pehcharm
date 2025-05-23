@@ -21,7 +21,7 @@ function Profile() {
   useEffect(() => {
     // Fetch user data from the backend
     axios
-      .get(`https://pehcharm-backend.onrender.com/user/${username}`)
+      .get(`http://localhost:4001/user/${username}`)
       .then((response) => {
         setUserData(response.data);
         setLoading(false);
@@ -50,7 +50,7 @@ function Profile() {
   useEffect(() => {
     if (!username) return;
     axios
-      .get("https://pehcharm-backend.onrender.com/recommendations/getrec", {
+      .get("http://localhost:4001/recommendations/getrec", {
         params: { toUser: username, status: "approved" },
       })
       .then((res) => setRecs(res.data))

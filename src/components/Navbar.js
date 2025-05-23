@@ -18,7 +18,7 @@ function Navbar() {
   useEffect(() => {
     if (!username) return;
     axios
-      .get("https://pehcharm-backend.onrender.com/recommendations/getrec", {
+      .get("http://localhost:4001/recommendations/getrec", {
         params: { toUser: username, status: "pending" },
       })
       .then((res) => setNotificationCount(res.data.length))

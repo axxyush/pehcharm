@@ -13,7 +13,7 @@ function Blog() {
   useEffect(() => {
     // Fetch blog data from the backend
     axios
-      .get(`https://pehcharm-backend.onrender.com/blogs/${username}/blogs`)
+      .get(`http://localhost:4001/blogs/${username}/blogs`)
       .then((response) => {
         setBlogData(response.data);
         setLoading(false);
@@ -27,7 +27,7 @@ function Blog() {
   const deleteBlog = async (id) => {
     try {
       setLoading(true);
-      await axios.delete(`https://pehcharm-backend.onrender.com/blogs/${id}`);
+      await axios.delete(`http://localhost:4001/blogs/${id}`);
       setBlogData((prevBlogData) =>
         prevBlogData.filter((blog) => blog._id !== id)
       );
