@@ -6,15 +6,17 @@ import Socials from "./Socials";
 import Error from "./Error";
 import pehcharm from "../images/pehcharm-logo.png";
 import WriteRec from "./WriteRec";
+import { useAuth } from "../context/AuthProvider";
 
 function Profile() {
+  const [authUser] = useAuth();
   const { username } = useParams();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [repos, setRepos] = useState([]);
   const navigate = useNavigate();
-  // const [recs, setRecs] = useState([]);
+  const [recs, setRecs] = useState([]);
 
   useEffect(() => {
     // Fetch user data from the backend
@@ -30,18 +32,6 @@ function Profile() {
       });
   }, [username]);
 
-  // const respond = async (recId, show) => {
-  //   try {
-  //     await axios.patch(
-  //       `https://pehcharm-backend.onrender.com/user/${userData.username}/recommendation/${recId}`,
-  //       { show }
-  //     );
-  //     fetchRecs();
-  //   } catch (err) {
-  //     console.error("Error responding to rec:", err);
-  //   }
-  // };
-
   useEffect(() => {
     if (userData && userData.github) {
       const github_username = userData.github.split("/").pop();
@@ -56,6 +46,15 @@ function Profile() {
         });
     }
   }, [userData]);
+
+  useEffect(() => {
+    axios
+      .get("/recommendations/getrec", {
+        params: { toUser: username, status: "approved" },
+      })
+      .then((res) => setRecs(res.data))
+      .catch((err) => console.error("Rec fetch failed:", err));
+  }, [username]);
 
   if (loading)
     return (
@@ -75,17 +74,6 @@ function Profile() {
   const handleBlog = () => {
     navigate(`/${username}/blogs`);
   };
-
-  // const fetchRecs = async () => {
-  //   try {
-  //     const res = await axios.get(
-  //       `https://pehcharm-backend.onrender.com/user/${userData.username}/recommendations`
-  //     );
-  //     setRecs(res.data);
-  //   } catch (err) {
-  //     console.error("Error fetching recs:", err);
-  //   }
-  // };
 
   return (
     <div>
@@ -134,8 +122,11 @@ function Profile() {
               </div>
             </div>
           </div>
-          <WriteRec username={userData.username} />
-
+          <WriteRec
+            name={userData.name}
+            toUser={userData.username}
+            fromUser={authUser.username}
+          />
           {/* About ******************************************** */}
           <div className="about col-xxl-8 p-4 ">
             <div className="row flex-lg-row-reverse align-items-center p-3 text-light justify-content-center">
@@ -168,7 +159,6 @@ function Profile() {
               </div>
             </div>
           </div>
-
           {/* Experience **************************************8 */}
           {userData.experience.length > 0 ? (
             <div
@@ -202,7 +192,6 @@ function Profile() {
           ) : (
             ""
           )}
-
           {/* Projects **************************************8 */}
           {userData.project.length > 0 ? (
             <div
@@ -242,7 +231,6 @@ function Profile() {
           ) : (
             ""
           )}
-
           {/* Skills **************************************8 */}
           {userData.skills.length > 0 ? (
             <div
@@ -266,7 +254,6 @@ function Profile() {
           ) : (
             ""
           )}
-
           {/* Education **************************************8 */}
           {userData.education.length > 0 ? (
             <div
@@ -298,7 +285,6 @@ function Profile() {
           ) : (
             ""
           )}
-
           {/* Honors & Awards **************************************8 */}
           {userData.honors ? (
             <div className="p-5" style={{ backgroundColor: "black" }}>
@@ -321,7 +307,22 @@ function Profile() {
           ) : (
             ""
           )}
-
+          {/* Recommendations */}
+          <div className="container mt-5">
+            <h3 className="text-white">Recommendations</h3>
+            {recs.length > 0 ? (
+              recs.map((r) => (
+                <blockquote key={r._id} className="blockquote text-light">
+                  <p>{r.content}</p>
+                  <footer className="blockquote-footer text-white">
+                    {r.fromUser}, {new Date(r.date).toLocaleDateString()}
+                  </footer>
+                </blockquote>
+              ))
+            ) : (
+              <p className="text-light">No recommendations yet.</p>
+            )}
+          </div>
           {/*GitHub Repos*/}
           {userData.github && repos.length > 0 && (
             <div
@@ -347,8 +348,9 @@ function Profile() {
                 </div>
               </div>
             </div>
-          )}
 
+            // Recs
+          )}
           {/* 3D Model */}
           <div className="container">
             <script

@@ -1,17 +1,11 @@
 import express from "express";
-import {
-  signup,
-  login,
-  update,
-  respondRecommendation,
-} from "../controller/user.controller.js";
+import { signup, login, update } from "../controller/user.controller.js";
 import User from "../model/user.model.js";
 const router = express.Router();
 
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/update", update);
-router.patch("/:username/recommendation/:recId", respondRecommendation);
 
 // Route to get user data by username
 router.get("/:username", async (req, res) => {

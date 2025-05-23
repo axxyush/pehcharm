@@ -1,29 +1,33 @@
-// WriteRec.jsx
 import React, { useState } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
-export default function WriteRec({ username }) {
-  const MAX = 1000;
+export default function WriteRec(props) {
   const [message, setMessage] = useState("");
-  const charsLeft = MAX - message.length;
+  const [loading, setLoading] = useState(false); // ← loading state
 
   const handleSubmit = async () => {
     if (!message.trim()) return;
+    setLoading(true); // ← start spinner
     try {
-      // adjust baseURL or axios instance as needed
       await axios.post(
-        `/user/${username}/recommendation`,
-        { content: message }
-        // if you need auth: , { headers: { Authorization: `Bearer ${token}` } }
+        `https://pehcharm-backend.onrender.com/recommendations/addrec`,
+        {
+          content: message,
+          toUser: props.toUser,
+          fromUser: props.fromUser,
+        }
       );
+      toast.success("Recommendation posted!");
       setMessage("");
-
-      // hide the modal via Bootstrap’s JS API
       const modalEl = document.getElementById("recModal");
       const bsModal = window.bootstrap.Modal.getInstance(modalEl);
       bsModal.hide();
     } catch (err) {
-      console.error("Failed to post recommendation:", err);
+      console.error(err);
+      toast.error("Failed to post recommendation.");
+    } finally {
+      setLoading(false); // ← stop spinner
     }
   };
 
@@ -37,52 +41,57 @@ export default function WriteRec({ username }) {
     >
       <div className="modal-dialog">
         <div className="modal-content bg-dark text-light">
-          <div className="modal-header">
-            <h5 className="modal-title" id="recModalLabel">
-              Recommend {username}
-            </h5>
-            <button
-              type="button"
-              className="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            />
-          </div>
-          <div className="modal-body">
-            <textarea
-              className="form-control mb-2"
-              id="message-text"
-              rows={5}
-              maxLength={MAX}
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Write your recommendation…"
-            />
+          {loading ? (
             <div
-              className={
-                "text-end " + (charsLeft < 50 ? "text-danger" : "text-muted")
-              }
+              style={{ height: "20vh" }}
+              className="d-flex justify-content-center align-items-center"
             >
-              {charsLeft} characters left
+              <div className="spinner-border text-light" role="status">
+                <span className="visually-hidden">Posting...</span>
+              </div>
             </div>
-          </div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary"
-              disabled={!message.trim()}
-              onClick={handleSubmit}
-            >
-              Post
-            </button>
-          </div>
+          ) : (
+            <>
+              <div className="modal-header">
+                <h5 className="modal-title" id="recModalLabel">
+                  Recommend {props.name}
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close btn-close-white"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                />
+              </div>
+              <div className="modal-body">
+                <textarea
+                  className="form-control mb-2"
+                  id="message-text"
+                  rows={5}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Write your recommendation…"
+                />
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  disabled={!message.trim()}
+                  onClick={handleSubmit}
+                >
+                  Post
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -116,23 +116,3 @@ export const update = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
-// Recommendations
-export const respondRecommendation = async (req, res) => {
-  const { username, recId } = req.params;
-  const { show } = req.body;
-  try {
-    const user = await User.findOne({ username });
-    if (!user) return res.status(404).json({ message: "User not found" });
-    const rec = user.recommendation.id(recId);
-    if (!rec)
-      return res.status(404).json({ message: "Recommendation not found" });
-
-    rec.show = show;
-    await user.save();
-    return res.json({ recId, show });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ message: "Server error" });
-  }
-};

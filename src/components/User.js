@@ -80,10 +80,10 @@ function User() {
     name: "skills",
   });
 
-  const respond = async (recId, show) => {
+  const updateRec = async (recId, show) => {
     try {
       await axios.patch(
-        `https://pehcharm-backend.onrender.com/user/${authUser.username}/recommendation/${recId}`,
+        `https://pehcharm-backend.onrender.com/recommendations/${recId}`,
         { show }
       );
       setRecs((rs) => rs.map((r) => (r._id === recId ? { ...r, show } : r)));
@@ -675,13 +675,13 @@ function User() {
                 <div>
                   <div>
                     <button
-                      onClick={() => respond(r._id, true)}
+                      onClick={() => updateRec(r._id, true)}
                       className="btn btn-sm btn-success me-2"
                     >
                       Accept
                     </button>
                     <button
-                      onClick={() => respond(r._id, false)}
+                      onClick={() => updateRec(r._id, false)}
                       className="btn btn-sm btn-danger"
                     >
                       Reject

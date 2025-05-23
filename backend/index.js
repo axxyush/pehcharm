@@ -7,6 +7,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import userRoute from "./route/user.route.js";
 import blogRoute from "./route/blog.route.js";
+import recommendationRoute from "./route/rec.route.js";
+// import recommendationRoute from "./route/rec.route.js";
 
 app.use(cors());
 app.use(express.json());
@@ -28,6 +30,7 @@ mongoose
 //Defining routes
 app.use("/user", userRoute);
 app.use("/blogs", blogRoute);
+app.use("/recommendations", recommendationRoute);
 
 app.listen(PORT, () => {
   console.log(`Pehcharm listening on port ${PORT}`);
