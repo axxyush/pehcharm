@@ -29,8 +29,28 @@ function Notifications() {
       } else {
         toast.success("Recommendation Rejected!");
       }
+      // Reload the page after a short delay
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const deleteRec = async (recId) => {
+    try {
+      await axios.delete(`http://localhost:4001/recommendations/${recId}`);
+      // remove it from the pending list
+      setRecs((rs) => rs.filter((r) => r._id !== recId));
+      toast.success("Recommendation deleted successfully!");
+      // Reload the page after a short delay
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to delete recommendation");
     }
   };
 
@@ -74,6 +94,13 @@ function Notifications() {
                 >
                   Accept
                 </button>{" "}
+                <button
+                  type="button"
+                  onClick={() => deleteRec(r._id)}
+                  className="btn btn-outline-danger btn-sm texts"
+                >
+                  Reject
+                </button>
               </p>
               <hr />
             </div>

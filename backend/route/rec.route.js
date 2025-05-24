@@ -3,6 +3,7 @@ import {
   createRecommendation,
   getRecommendations,
   updateRecommendation,
+  deleteRecommendation,
 } from "../controller/rec.controller.js";
 
 const router = express.Router();
@@ -15,5 +16,8 @@ router.get("/getrec", getRecommendations);
 
 // Approve / Reject
 router.patch("/:id", updateRecommendation);
+
+// Delete
+router.delete("/:id", deleteRecommendation);
 
 export default router;
