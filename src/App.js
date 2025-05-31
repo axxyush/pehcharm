@@ -17,6 +17,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import AddBlog from "./components/AddBlog";
 import Blog from "./components/Blog";
 import Notifications from "./components/Notifications";
+import Jobs from "./components/Jobs";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function MainLayout() {
             <ProtectedRoute component={Notifications} authUser={authUser} />
           }
         />
+        <Route path="/jobs" element={<Jobs />} />
       </Routes>
       <Footer />
     </>
