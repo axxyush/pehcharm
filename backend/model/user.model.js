@@ -38,6 +38,7 @@ const userSchema = new mongoose.Schema({
   skills: [String],
   project: [projectSchema],
   honors: String,
+  viewers: [{ type: String }],
 });
 
 const User = mongoose.model("User", userSchema);

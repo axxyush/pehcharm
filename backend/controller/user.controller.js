@@ -70,6 +70,7 @@ export const login = async (req, res) => {
           honors: user.honors,
           project: user.project,
           recommendation: user.recommendation,
+          viewers: user.viewers,
           _id: user._id,
         },
       });
@@ -108,11 +109,66 @@ export const update = async (req, res) => {
         honors: user.honors,
         project: user.project,
         recommendation: user.recommendation,
+        viewers: user.viewers,
         _id: user._id,
       },
     });
   } catch (error) {
     console.log("Error : ", error.message);
     res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+// add viewer
+export const addViewer = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const { viewer } = req.body;
+
+    if (!viewer) {
+      return res.status(400).json({ message: "Missing viewer username" });
+    }
+
+    if (viewer === username) {
+      return res.status(400).json({ message: "Cannot add yourself as viewer" });
+    }
+
+    const user = await User.findOne({ username });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    user.viewers.push(viewer);
+    await user.save();
+
+    return res.status(200).json({ viewers: user.viewers });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+// DELETE viewer
+export const removeViewer = async (req, res) => {
+  try {
+    const { username, idx } = req.params;
+    const index = parseInt(idx, 10);
+
+    if (isNaN(index)) {
+      return res.status(400).json({ message: "Invalid index" });
+    }
+
+    const user = await User.findOne({ username });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    if (index < 0 || index >= user.viewers.length) {
+      return res.status(400).json({ message: "Index out of range" });
+    }
+
+    user.viewers.splice(index, 1);
+    await user.save();
+
+    return res.status(200).json({ viewers: user.viewers });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Server error" });
   }
 };

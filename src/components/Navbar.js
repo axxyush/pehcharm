@@ -16,14 +16,30 @@ function Navbar() {
   const [sticky, setSticky] = useState(false);
 
   useEffect(() => {
-    if (!username) return;
-    axios
-      .get("http://localhost:4001/recommendations/getrec", {
-        params: { toUser: username, status: "pending" },
-      })
-      .then((res) => setNotificationCount(res.data.length))
-      .catch((err) => console.error("Failed to load notification count:", err));
-  }, [username]);
+    if (!authUser?.username) return;
+
+    const fetchCounts = async () => {
+      try {
+        const [recRes, userRes] = await Promise.all([
+          axios.get("http://localhost:4001/recommendations/getrec", {
+            params: { toUser: username, status: "pending" },
+          }),
+          axios.get(`http://localhost:4001/user/${authUser.username}`),
+        ]);
+
+        const recCount = Array.isArray(recRes.data) ? recRes.data.length : 0;
+        const viewerCount = Array.isArray(userRes.data.viewers)
+          ? userRes.data.viewers.length
+          : 0;
+
+        setNotificationCount(recCount + viewerCount);
+      } catch (err) {
+        console.error("Failed to load notification count:", err);
+      }
+    };
+
+    fetchCounts();
+  }, [authUser.username, username]);
 
   useEffect(() => {
     const handleScroll = () => {
