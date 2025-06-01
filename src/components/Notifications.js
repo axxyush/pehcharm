@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 function Notifications() {
   const [authUser] = useAuth();
   const navigate = useNavigate();
-
   const [recs, setRecs] = React.useState([]);
   const [viewers, setViewers] = React.useState([]);
 

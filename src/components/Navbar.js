@@ -16,7 +16,7 @@ function Navbar() {
   const [sticky, setSticky] = useState(false);
 
   useEffect(() => {
-    if (!authUser?.username) return;
+    if (!username) return;
 
     const fetchCounts = async () => {
       try {
@@ -24,7 +24,7 @@ function Navbar() {
           axios.get("http://localhost:4001/recommendations/getrec", {
             params: { toUser: username, status: "pending" },
           }),
-          axios.get(`http://localhost:4001/user/${authUser.username}`),
+          axios.get(`http://localhost:4001/user/${username}`),
         ]);
 
         const recCount = Array.isArray(recRes.data) ? recRes.data.length : 0;
@@ -39,7 +39,7 @@ function Navbar() {
     };
 
     fetchCounts();
-  }, [authUser.username, username]);
+  }, [username]);
 
   useEffect(() => {
     const handleScroll = () => {

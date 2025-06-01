@@ -12,6 +12,7 @@ function Search() {
   const [authUser] = useAuth();
 
   const onSubmit = async (data) => {
+    if (!authUser?.username) return;
     setLoading(true);
     try {
       const response = await axios.get(
