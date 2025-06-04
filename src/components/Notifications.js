@@ -84,24 +84,45 @@ function Notifications() {
 
           {recs.map((r) => (
             <div key={r._id} className="mb-4">
-              <p className="mt-2">
-                <b>{r.fromUser} posted a Recommendation for you</b> - "
-                {r.content}"{" "}
-                <button
-                  type="button"
-                  onClick={() => updateRec(r._id, true)}
-                  className="btn btn-outline-success btn-sm texts"
-                >
-                  Accept
-                </button>{" "}
-                <button
-                  type="button"
-                  onClick={() => deleteRec(r._id)}
-                  className="btn btn-outline-danger btn-sm texts"
-                >
-                  Reject
-                </button>
-              </p>
+              {r.type === 'request' ? (
+                <p className="mt-2">
+                  <b>{r.fromUser} is requesting a recommendation from you!</b>
+                  <a
+                    href={`/${r.fromUser}`}
+                    className="btn btn-outline-info btn-sm texts ms-2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Visit Profile
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => deleteRec(r._id)}
+                    className="btn btn-outline-danger btn-sm texts ms-2"
+                  >
+                    Dismiss
+                  </button>
+                </p>
+              ) : (
+                <p className="mt-2">
+                  <b>{r.fromUser} posted a Recommendation for you</b> - "
+                  {r.content}"{" "}
+                  <button
+                    type="button"
+                    onClick={() => updateRec(r._id, true)}
+                    className="btn btn-outline-success btn-sm texts"
+                  >
+                    Accept
+                  </button>{" "}
+                  <button
+                    type="button"
+                    onClick={() => deleteRec(r._id)}
+                    className="btn btn-outline-danger btn-sm texts"
+                  >
+                    Reject
+                  </button>
+                </p>
+              )}
               <hr />
             </div>
           ))}
