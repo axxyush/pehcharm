@@ -7,6 +7,7 @@ import Error from "./Error";
 import pehcharm from "../images/pehcharm-logo.png";
 import WriteRec from "./WriteRec";
 import { useAuth } from "../context/AuthProvider";
+import toast from "react-hot-toast";
 
 function Profile() {
   const [authUser] = useAuth();
@@ -59,6 +60,18 @@ function Profile() {
 
   const handleSignUp = () => {
     navigate("/signup");
+  };
+
+  const handleRequestRecommendation = async () => {
+    try {
+      await axios.post("http://localhost:4001/recommendations/requestrec", {
+        toUser: userData.username,
+        fromUser: authUser.username,
+      });
+      toast.success("Recommendation request sent!");
+    } catch (err) {
+      toast.error("Failed to send request");
+    }
   };
 
   if (loading)
@@ -116,14 +129,27 @@ function Profile() {
                   ></i>
                   {userData.email}
                   {authUser ? (
-                    <button
-                      type="button"
-                      className="btn btn-outline-light btn-sm m-3"
-                      data-bs-toggle="modal"
-                      data-bs-target="#recModal"
-                    >
-                      Recommend Me!
-                    </button>
+                    <>
+                      {authUser.username !== userData.username && (<button
+                        type="button"
+                        className="btn btn-outline-light btn-sm m-3"
+                        data-bs-toggle="modal"
+                        data-bs-target="#recModal"
+                      >
+                        Recommend Me!
+                      </button>
+                      )}
+                      
+                      {authUser.username !== userData.username && (
+                        <button
+                          type="button"
+                          className="btn btn-outline-light btn-sm m-3"
+                          onClick={handleRequestRecommendation}
+                        >
+                          Request Recommendation
+                        </button>
+                      )}
+                    </>
                   ) : (
                     <button
                       type="button"
