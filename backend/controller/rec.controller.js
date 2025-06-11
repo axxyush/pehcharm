@@ -41,3 +41,38 @@ export const updateRecommendation = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+export const deleteRecommendation = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedRec = await Recommendation.findByIdAndDelete(id);
+    
+    if (!deletedRec) {
+      return res.status(404).json({ message: "Recommendation not found" });
+    }
+    
+    res.status(200).json({ message: "Recommendation deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting recommendation:", error);
+    res.status(500).json({ message: "Error deleting recommendation" });
+  }
+};
+
+export const requestRecommendation = async (req, res) => {
+  try {
+    const { toUser, fromUser } = req.body;
+    if (!toUser || !fromUser) {
+      return res.status(400).json({ message: 'Missing toUser or fromUser' });
+    }
+    const rec = await Recommendation.create({
+      toUser,
+      fromUser,
+      content: '[Recommendation Request]', // Default message for request
+      type: 'request',
+    });
+    return res.status(201).json(rec);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Server error' });
+  }
+};

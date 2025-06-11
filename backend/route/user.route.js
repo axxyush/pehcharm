@@ -1,11 +1,22 @@
 import express from "express";
-import { signup, login, update } from "../controller/user.controller.js";
+import {
+  signup,
+  login,
+  update,
+  addViewer,
+  removeViewer,
+} from "../controller/user.controller.js";
+import { aiFeedback } from "../controller/ai.controller.js";
 import User from "../model/user.model.js";
+
 const router = express.Router();
 
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/update", update);
+router.post("/:username/viewers", addViewer);
+router.delete("/:username/viewers/:idx", removeViewer);
+router.post("/:username/ai-feedback", aiFeedback);
 
 // Route to get user data by username
 router.get("/:username", async (req, res) => {

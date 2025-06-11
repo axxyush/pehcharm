@@ -17,12 +17,28 @@ function Navbar() {
 
   useEffect(() => {
     if (!username) return;
-    axios
-      .get("http://localhost:4001/recommendations/getrec", {
-        params: { toUser: username, status: "pending" },
-      })
-      .then((res) => setNotificationCount(res.data.length))
-      .catch((err) => console.error("Failed to load notification count:", err));
+
+    const fetchCounts = async () => {
+      try {
+        const [recRes, userRes] = await Promise.all([
+          axios.get("http://localhost:4001/recommendations/getrec", {
+            params: { toUser: username, status: "pending" },
+          }),
+          axios.get(`http://localhost:4001/user/${username}`),
+        ]);
+
+        const recCount = Array.isArray(recRes.data) ? recRes.data.length : 0;
+        const viewerCount = Array.isArray(userRes.data.viewers)
+          ? userRes.data.viewers.length
+          : 0;
+
+        setNotificationCount(recCount + viewerCount);
+      } catch (err) {
+        console.error("Failed to load notification count:", err);
+      }
+    };
+
+    fetchCounts();
   }, [username]);
 
   useEffect(() => {
@@ -132,6 +148,15 @@ function Navbar() {
                 ) : (
                   ""
                 )}
+              </li>
+              <li
+                className={`nav-item ${
+                  location.pathname === "/jobs" ? "active" : ""
+                }  `}
+              >
+                <Link className="nav-link" to="/jobs">
+                  Jobs
+                </Link>
               </li>
               <li
                 className={`nav-item ${
