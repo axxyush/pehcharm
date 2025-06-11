@@ -113,8 +113,7 @@ Make sure to output exactly valid JSON—no extraneous text. Example output:
       parsed = JSON.parse(assistantReply);
     } catch (err) {
       return res.status(500).json({
-        message:
-          "AI did not return valid JSON. See 'raw' field for the model output.",
+        message: "AI did not return valid response. Try again.",
         raw: assistantReply,
       });
     }

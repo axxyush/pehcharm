@@ -187,7 +187,7 @@ function Profile() {
                   )}
                 </div>
                 {/* Feedback ******************************************** */}
-                {authUser.username === userData.username ? (
+                {authUser && authUser.username === userData.username ? (
                   <>
                     <button
                       onClick={handleGetFeedback}
@@ -222,13 +222,17 @@ function Profile() {
           ) : (
             ""
           )}
-          {feedback && (
-            <Feedback
-              lines={feedback.professional_feedback}
-              rating={feedback.rating}
-              missing_skills={feedback.missing_skills}
-            />
-          )}
+          {authUser
+            ? authUser.username === userData.username &&
+              authUser &&
+              feedback && (
+                <Feedback
+                  lines={feedback.professional_feedback}
+                  rating={feedback.rating}
+                  missing_skills={feedback.missing_skills}
+                />
+              )
+            : ""}
           {/* About ******************************************** */}
           <div className="about col-xxl-8 p-4 ">
             <div className="row flex-lg-row-reverse align-items-center p-3 text-light justify-content-center">
