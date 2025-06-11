@@ -110,7 +110,14 @@ function Profile() {
       setFeedback(res.data);
     } catch (err) {
       console.error("AI feedback error:", err);
-      toast.error(err.response?.data?.message || "Failed to get AI feedback.");
+      const errorMessage = err.response?.data?.message || 
+                          err.response?.data?.error || 
+                          err.message || 
+                          "Failed to get AI feedback.";
+      toast.error(errorMessage);
+      if (err.response?.data?.raw) {
+        console.error("Raw AI response:", err.response.data.raw);
+      }
     } finally {
       setLoading(false);
     }

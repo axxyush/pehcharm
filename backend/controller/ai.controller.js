@@ -4,6 +4,10 @@ dotenv.config();
 import User from "../model/user.model.js";
 import OpenAI from "openai";
 
+// Add debug logging for API key
+console.log("OpenAI API Key exists:", !!process.env.OPENAI_API_KEY);
+console.log("OpenAI API Key length:", process.env.OPENAI_API_KEY?.length);
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -11,9 +15,11 @@ const openai = new OpenAI({
 export const aiFeedback = async (req, res) => {
   try {
     const { username } = req.params;
+    console.log("Processing AI feedback for username:", username);
 
     const user = await User.findOne({ username });
     if (!user) {
+      console.log("User not found:", username);
       return res.status(404).json({ message: "User not found" });
     }
 
@@ -67,7 +73,7 @@ Please respond with a JSON object that has the following fields:
 2. "rating": A number between 1 and 10 (up to one decimal point) evaluating the overall strength of the portfolio.
 
 3. "missing_skills": An array of objects, each with:
-    - "skill": the name of a skill they don’t list but should consider.
+    - "skill": the name of a skill they don't list but should consider.
     - "reason": a short sentence explanation of why they should learn it.
     - "courses": an array of up to 2-3 recommended online courses (by name + platform).
 
@@ -96,32 +102,66 @@ Make sure to output exactly valid JSON—no extraneous text. Example output:
 
     let completion;
     try {
+      console.log("Attempting to call OpenAI API...");
       completion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages,
         temperature: 0.7,
       });
+      console.log("OpenAI API call successful");
     } catch (openaiErr) {
+      console.error("OpenAI API error details:", {
+        message: openaiErr.message,
+        status: openaiErr.status,
+        type: openaiErr.type,
+        code: openaiErr.code
+      });
       return res
         .status(502)
-        .json({ message: "OpenAI API error", details: openaiErr.toString() });
+        .json({ 
+          message: "OpenAI API error", 
+          details: openaiErr.toString(),
+          error: openaiErr
+        });
     }
 
     const assistantReply = completion.choices[0].message.content.trim();
+    console.log("Raw AI response:", assistantReply);
+    
     let parsed;
     try {
       parsed = JSON.parse(assistantReply);
+      console.log("Successfully parsed AI response:", parsed);
     } catch (err) {
+      console.error("Failed to parse AI response:", {
+        error: err.message,
+        rawResponse: assistantReply
+      });
       return res.status(500).json({
-        message: "AI did not return valid response. Try again.",
+        message: "AI did not return valid JSON response. Try again.",
         raw: assistantReply,
+        error: err.message
+      });
+    }
+
+    // Validate the parsed response has the required fields
+    if (!parsed.professional_feedback || !parsed.rating || !parsed.missing_skills) {
+      console.error("AI response missing required fields:", parsed);
+      return res.status(500).json({
+        message: "AI response missing required fields",
+        received: parsed
       });
     }
 
     return res.status(200).json(parsed);
   } catch (err) {
+    console.error("Server error in aiFeedback:", err);
     return res
       .status(500)
-      .json({ message: "Server error", error: err.toString() });
+      .json({ 
+        message: "Server error", 
+        error: err.toString(),
+        stack: err.stack 
+      });
   }
 };
