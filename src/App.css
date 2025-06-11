@@ -1318,3 +1318,9 @@ ul {
 .slide-up {
   animation: slideUp 1s ease-out;
 }
+
+.gradient-text {
+  background-image: linear-gradient(90deg, #ff6ec7, #9b59b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

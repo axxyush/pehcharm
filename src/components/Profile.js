@@ -8,6 +8,7 @@ import pehcharm from "../images/pehcharm-logo.png";
 import WriteRec from "./WriteRec";
 import { useAuth } from "../context/AuthProvider";
 import toast from "react-hot-toast";
+import Feedback from "./Feedback";
 
 function Profile() {
   const [authUser] = useAuth();
@@ -18,6 +19,7 @@ function Profile() {
   const [repos, setRepos] = useState([]);
   const navigate = useNavigate();
   const [recs, setRecs] = useState([]);
+  const [feedback, setFeedback] = useState(null);
 
   useEffect(() => {
     // Fetch user data from the backend
@@ -93,6 +95,27 @@ function Profile() {
     navigate(`/${username}/blogs`);
   };
 
+  const handleGetFeedback = async () => {
+    if (!authUser) {
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        `http://localhost:4001/user/${username}/ai-feedback`,
+        {}
+      );
+      toast.success("AI feedback Created Below!");
+      setFeedback(res.data);
+    } catch (err) {
+      console.error("AI feedback error:", err);
+      toast.error(err.response?.data?.message || "Failed to get AI feedback.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       {userData ? (
@@ -114,7 +137,8 @@ function Profile() {
                 <h1 className="display-5 fw-bold text-white mb-5">
                   I am {userData.name}
                 </h1>
-                <div className="d-flex text-light flex-row align-items-center">
+
+                <div className="d-flex text-light flex-row align-items-center flex-wrap">
                   <i
                     style={{
                       backgroundColor: "black",
@@ -128,18 +152,20 @@ function Profile() {
                     className="fa-solid fa-envelope mx-2"
                   ></i>
                   {userData.email}
+
                   {authUser ? (
                     <>
-                      {authUser.username !== userData.username && (<button
-                        type="button"
-                        className="btn btn-outline-light btn-sm m-3"
-                        data-bs-toggle="modal"
-                        data-bs-target="#recModal"
-                      >
-                        Recommend Me!
-                      </button>
+                      {authUser.username !== userData.username && (
+                        <button
+                          type="button"
+                          className="btn btn-outline-light btn-sm m-3"
+                          data-bs-toggle="modal"
+                          data-bs-target="#recModal"
+                        >
+                          Recommend Me!
+                        </button>
                       )}
-                      
+
                       {authUser.username !== userData.username && (
                         <button
                           type="button"
@@ -160,6 +186,30 @@ function Profile() {
                     </button>
                   )}
                 </div>
+                {/* Feedback ******************************************** */}
+                {authUser.username === userData.username ? (
+                  <>
+                    <button
+                      onClick={handleGetFeedback}
+                      disabled={loading}
+                      className="btn-lg m-3 px-4 me-md-2 login-btn mt-5 mb-5"
+                      style={{ width: "30%", height: "50px" }}
+                    >
+                      {loading ? (
+                        <span
+                          className="spinner-border spinner-border-sm me-2"
+                          role="status"
+                          aria-hidden="true"
+                        />
+                      ) : (
+                        "Get AI Feedback"
+                      )}
+                      {loading ? "Analyzing…" : ""}
+                    </button>
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>
@@ -171,6 +221,13 @@ function Profile() {
             />
           ) : (
             ""
+          )}
+          {feedback && (
+            <Feedback
+              lines={feedback.professional_feedback}
+              rating={feedback.rating}
+              missing_skills={feedback.missing_skills}
+            />
           )}
           {/* About ******************************************** */}
           <div className="about col-xxl-8 p-4 ">

@@ -26,12 +26,12 @@ function Jobs() {
         "https://jooble.org/api/7ad722d0-bb77-43fe-b927-50b09c0c28bd",
         {
           keywords: searchQuery,
-          page: currentPage
+          page: currentPage,
         },
         {
           headers: {
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         }
       );
 
@@ -55,17 +55,25 @@ function Jobs() {
   const getFilteredJobs = () => {
     let filtered = jobs;
     if (jobType) {
-      filtered = filtered.filter((job) =>
-        job.type && job.type.toLowerCase().includes(jobType.toLowerCase())
+      filtered = filtered.filter(
+        (job) =>
+          job.type && job.type.toLowerCase().includes(jobType.toLowerCase())
       );
     }
     if (location) {
       filtered = filtered.filter((job) => {
         if (!job.location) return false;
-        if (location === "US") return job.location.match(/\bUS|United States\b/i);
+        if (location === "US")
+          return job.location.match(/\bUS|United States\b/i);
         if (location === "Canada") return job.location.match(/\bCanada\b/i);
-        if (location === "Europe") return job.location.match(/Europe|Germany|France|UK|Italy|Spain|Netherlands|Sweden|Norway|Finland|Switzerland|Denmark|Belgium|Austria|Ireland|Portugal|Poland|Czech|Hungary|Romania|Greece|Bulgaria|Slovakia|Slovenia|Estonia|Latvia|Lithuania|Luxembourg|Croatia|Serbia|Ukraine|Russia/i);
-        if (location === "Asia") return job.location.match(/Asia|India|China|Japan|Singapore|Hong Kong|Malaysia|Thailand|Vietnam|Indonesia|Philippines|Pakistan|Bangladesh|Sri Lanka|Nepal|South Korea|Taiwan|UAE|Saudi Arabia|Qatar|Kuwait|Oman|Israel|Turkey/i);
+        if (location === "Europe")
+          return job.location.match(
+            /Europe|Germany|France|UK|Italy|Spain|Netherlands|Sweden|Norway|Finland|Switzerland|Denmark|Belgium|Austria|Ireland|Portugal|Poland|Czech|Hungary|Romania|Greece|Bulgaria|Slovakia|Slovenia|Estonia|Latvia|Lithuania|Luxembourg|Croatia|Serbia|Ukraine|Russia/i
+          );
+        if (location === "Asia")
+          return job.location.match(
+            /Asia|India|China|Japan|Singapore|Hong Kong|Malaysia|Thailand|Vietnam|Indonesia|Philippines|Pakistan|Bangladesh|Sri Lanka|Nepal|South Korea|Taiwan|UAE|Saudi Arabia|Qatar|Kuwait|Oman|Israel|Turkey/i
+          );
         return false;
       });
     }
@@ -93,19 +101,26 @@ function Jobs() {
         <div className="row justify-content-center">
           <div className="col-md-10">
             <h1 className="text-center text-light mb-4">Find Your Dream Job</h1>
-            <div className="search-bar-container mx-3" style={{ width: "100%" }}>
-              <form onSubmit={handleSearch} 
+            <div
+              className="search-bar-container mx-3"
+              style={{ width: "100%" }}
+            >
+              <form
+                onSubmit={handleSearch}
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  background: '#181824',
-                  borderRadius: '16px',
-                  padding: '0.5rem 1rem',
-                  boxShadow: '0 2px 16px 0 rgba(0,0,0,0.15)',
-                  width: '100%'
+                  display: "flex",
+                  alignItems: "center",
+                  background: "#181824",
+                  borderRadius: "16px",
+                  padding: "0.5rem 1rem",
+                  boxShadow: "0 2px 16px 0 rgba(0,0,0,0.15)",
+                  width: "100%",
                 }}
               >
-                <span className="search-icon" style={{ color: '#fff', marginRight: 12 }}>
+                <span
+                  className="search-icon"
+                  style={{ color: "#fff", marginRight: 12 }}
+                >
                   <svg
                     height={20}
                     width={20}
@@ -126,11 +141,11 @@ function Jobs() {
                   disabled={loading}
                   style={{
                     flex: 1,
-                    background: 'transparent',
-                    border: 'none',
-                    color: '#fff',
-                    fontSize: '1.2rem',
-                    outline: 'none',
+                    background: "transparent",
+                    border: "none",
+                    color: "#fff",
+                    fontSize: "1.2rem",
+                    outline: "none",
                   }}
                 />
                 {/* Filter Button */}
@@ -138,15 +153,15 @@ function Jobs() {
                   type="button"
                   className="btn"
                   style={{
-                    background: 'rgba(255,255,255,0.08)',
-                    color: '#fff',
+                    background: "rgba(255,255,255,0.08)",
+                    color: "#fff",
                     fontWeight: 600,
-                    borderRadius: '8px',
+                    borderRadius: "8px",
                     marginLeft: 16,
-                    padding: '0.5rem 1.5rem',
-                    fontSize: '1.1rem',
-                    border: '1px solid #22c55e',
-                    boxShadow: '0 2px 8px 0 rgba(34,197,94,0.10)',
+                    padding: "0.5rem 1.5rem",
+                    fontSize: "1.1rem",
+                    border: "1px solid #22c55e",
+                    boxShadow: "0 2px 8px 0 rgba(34,197,94,0.10)",
                   }}
                   onClick={() => setShowFilters((prev) => !prev)}
                 >
@@ -156,15 +171,15 @@ function Jobs() {
                   type="submit"
                   className="btn"
                   style={{
-                    background: '#22c55e',
-                    color: '#fff',
+                    background: "#22c55e",
+                    color: "#fff",
                     fontWeight: 600,
-                    borderRadius: '8px',
+                    borderRadius: "8px",
                     marginLeft: 16,
-                    padding: '0.5rem 1.5rem',
-                    fontSize: '1.1rem',
-                    border: 'none',
-                    boxShadow: '0 2px 8px 0 rgba(34,197,94,0.15)',
+                    padding: "0.5rem 1.5rem",
+                    fontSize: "1.1rem",
+                    border: "none",
+                    boxShadow: "0 2px 8px 0 rgba(34,197,94,0.15)",
                   }}
                   disabled={loading}
                 >
@@ -174,23 +189,25 @@ function Jobs() {
                 {showFilters && (
                   <div
                     style={{
-                      position: 'absolute',
-                      top: '60px',
-                      right: '40px',
+                      position: "absolute",
+                      top: "60px",
+                      right: "40px",
                       zIndex: 10,
-                      background: 'rgba(0,0,0,0.85)',
-                      color: '#fff',
-                      borderRadius: '14px',
-                      boxShadow: '0 4px 32px 0 rgba(0,0,0,0.25)',
-                      padding: '1.5rem',
-                      minWidth: '260px',
-                      border: '1px solid #22c55e',
-                      backdropFilter: 'blur(12px)',
-                      WebkitBackdropFilter: 'blur(12px)',
+                      background: "rgba(0,0,0,0.85)",
+                      color: "#fff",
+                      borderRadius: "14px",
+                      boxShadow: "0 4px 32px 0 rgba(0,0,0,0.25)",
+                      padding: "1.5rem",
+                      minWidth: "260px",
+                      border: "1px solid #22c55e",
+                      backdropFilter: "blur(12px)",
+                      WebkitBackdropFilter: "blur(12px)",
                     }}
                   >
-                    <div style={{ marginBottom: '1rem' }}>
-                      <label style={{ fontWeight: 600, color: '#22c55e' }}>Job Type</label>
+                    <div style={{ marginBottom: "1rem" }}>
+                      <label style={{ fontWeight: 600, color: "#22c55e" }}>
+                        Job Type
+                      </label>
                       <div>
                         <label style={{ marginRight: 16 }}>
                           <input
@@ -199,7 +216,8 @@ function Jobs() {
                             value="Internship"
                             checked={jobType === "Internship"}
                             onChange={() => setJobType("Internship")}
-                          /> Internship
+                          />{" "}
+                          Internship
                         </label>
                         <label>
                           <input
@@ -208,7 +226,8 @@ function Jobs() {
                             value="Full time"
                             checked={jobType === "Full time"}
                             onChange={() => setJobType("Full time")}
-                          /> Full time
+                          />{" "}
+                          Full time
                         </label>
                         <label style={{ marginLeft: 16 }}>
                           <input
@@ -217,12 +236,15 @@ function Jobs() {
                             value=""
                             checked={jobType === ""}
                             onChange={() => setJobType("")}
-                          /> Any
+                          />{" "}
+                          Any
                         </label>
                       </div>
                     </div>
                     <div>
-                      <label style={{ fontWeight: 600, color: '#22c55e' }}>Location</label>
+                      <label style={{ fontWeight: 600, color: "#22c55e" }}>
+                        Location
+                      </label>
                       <div>
                         <label style={{ marginRight: 16 }}>
                           <input
@@ -231,7 +253,8 @@ function Jobs() {
                             value="US"
                             checked={location === "US"}
                             onChange={() => setLocation("US")}
-                          /> US
+                          />{" "}
+                          US
                         </label>
                         <label style={{ marginRight: 16 }}>
                           <input
@@ -240,7 +263,8 @@ function Jobs() {
                             value="Canada"
                             checked={location === "Canada"}
                             onChange={() => setLocation("Canada")}
-                          /> Canada
+                          />{" "}
+                          Canada
                         </label>
                         <label style={{ marginRight: 16 }}>
                           <input
@@ -249,7 +273,8 @@ function Jobs() {
                             value="Europe"
                             checked={location === "Europe"}
                             onChange={() => setLocation("Europe")}
-                          /> Europe
+                          />{" "}
+                          Europe
                         </label>
                         <label style={{ marginRight: 16 }}>
                           <input
@@ -258,7 +283,8 @@ function Jobs() {
                             value="Asia"
                             checked={location === "Asia"}
                             onChange={() => setLocation("Asia")}
-                          /> Asia
+                          />{" "}
+                          Asia
                         </label>
                         <label>
                           <input
@@ -267,22 +293,23 @@ function Jobs() {
                             value=""
                             checked={location === ""}
                             onChange={() => setLocation("")}
-                          /> Any
+                          />{" "}
+                          Any
                         </label>
                       </div>
                     </div>
-                    <div style={{ textAlign: 'right', marginTop: '1.5rem' }}>
+                    <div style={{ textAlign: "right", marginTop: "1.5rem" }}>
                       <button
                         className="btn"
                         style={{
-                          background: '#22c55e',
-                          color: '#fff',
+                          background: "#22c55e",
+                          color: "#fff",
                           fontWeight: 600,
-                          borderRadius: '8px',
-                          padding: '0.5rem 1.5rem',
-                          fontSize: '1.1rem',
-                          border: 'none',
-                          boxShadow: '0 2px 8px 0 rgba(34,197,94,0.15)',
+                          borderRadius: "8px",
+                          padding: "0.5rem 1.5rem",
+                          fontSize: "1.1rem",
+                          border: "none",
+                          boxShadow: "0 2px 8px 0 rgba(34,197,94,0.15)",
                         }}
                         onClick={() => setShowFilters(false)}
                       >
@@ -307,17 +334,20 @@ function Jobs() {
                         key={job.id}
                         className="card mb-3"
                         style={{
-                          borderRadius: '18px',
-                          overflow: 'hidden',
-                          border: '1px solid rgba(255,255,255,0.08)',
-                          background: 'rgba(0,0,0,0.45)',
-                          backdropFilter: 'blur(16px)',
-                          WebkitBackdropFilter: 'blur(16px)',
-                          boxShadow: '0 4px 32px 0 rgba(0,0,0,0.25)',
-                          color: '#fff',
+                          borderRadius: "18px",
+                          overflow: "hidden",
+                          border: "1px solid rgba(255,255,255,0.08)",
+                          background: "rgba(0,0,0,0.45)",
+                          backdropFilter: "blur(16px)",
+                          WebkitBackdropFilter: "blur(16px)",
+                          boxShadow: "0 4px 32px 0 rgba(0,0,0,0.25)",
+                          color: "#fff",
                         }}
                       >
-                        <div className="card-body" style={{ padding: '1.5rem' }}>
+                        <div
+                          className="card-body"
+                          style={{ padding: "1.5rem" }}
+                        >
                           <div className="d-flex align-items-center mb-3">
                             {job.company_logo && (
                               <img
@@ -328,35 +358,59 @@ function Jobs() {
                                   height: "50px",
                                   marginRight: "15px",
                                   objectFit: "contain",
-                                  background: '#23263a',
-                                  borderRadius: '8px',
+                                  background: "#23263a",
+                                  borderRadius: "8px",
                                   padding: 4,
                                 }}
                               />
                             )}
                             <div>
-                              <h5 className="card-title mb-0" style={{ color: '#fff' }}>{job.title}</h5>
-                              <h6 className="card-subtitle" style={{ color: '#c7bfff' }}>{job.company}</h6>
+                              <h5
+                                className="card-title mb-0"
+                                style={{ color: "#fff" }}
+                              >
+                                {job.title}
+                              </h5>
+                              <h6
+                                className="card-subtitle"
+                                style={{ color: "#c7bfff" }}
+                              >
+                                {job.company}
+                              </h6>
                             </div>
                           </div>
-                          <p className="card-text" style={{ color: '#e0e0e0' }}>
-                            <strong style={{ color: '#22c55e' }}>Location:</strong> {job.location}
+                          <p className="card-text" style={{ color: "#e0e0e0" }}>
+                            <strong style={{ color: "#22c55e" }}>
+                              Location:
+                            </strong>{" "}
+                            {job.location}
                             <br />
                             {job.type && (
                               <>
-                                <strong style={{ color: '#22c55e' }}>Type:</strong> {job.type}
+                                <strong style={{ color: "#22c55e" }}>
+                                  Type:
+                                </strong>{" "}
+                                {job.type}
                                 <br />
                               </>
                             )}
                             {job.salary && (
                               <>
-                                <strong style={{ color: '#22c55e' }}>Salary:</strong> {job.salary}
+                                <strong style={{ color: "#22c55e" }}>
+                                  Salary:
+                                </strong>{" "}
+                                {job.salary}
                                 <br />
                               </>
                             )}
-                            <strong style={{ color: '#22c55e' }}>Posted:</strong> {job.date}
+                            <strong style={{ color: "#22c55e" }}>
+                              Posted:
+                            </strong>{" "}
+                            {job.date}
                             <br />
-                            <strong style={{ color: '#22c55e' }}>Description:</strong>{" "}
+                            <strong style={{ color: "#22c55e" }}>
+                              Description:
+                            </strong>{" "}
                             {job.description?.substring(0, 200)}...
                           </p>
                           <div className="d-flex justify-content-between align-items-center">
@@ -366,15 +420,15 @@ function Jobs() {
                               rel="noopener noreferrer"
                               className="btn"
                               style={{
-                                background: 'rgba(34,197,94,0.95)',
-                                color: '#fff',
+                                background: "rgba(34,197,94,0.95)",
+                                color: "#fff",
                                 fontWeight: 600,
-                                borderRadius: '8px',
-                                padding: '0.5rem 1.5rem',
-                                fontSize: '1.1rem',
-                                border: 'none',
-                                boxShadow: '0 2px 8px 0 rgba(34,197,94,0.15)',
-                                transition: 'background 0.2s',
+                                borderRadius: "8px",
+                                padding: "0.5rem 1.5rem",
+                                fontSize: "1.1rem",
+                                border: "none",
+                                boxShadow: "0 2px 8px 0 rgba(34,197,94,0.15)",
+                                transition: "background 0.2s",
                               }}
                             >
                               Apply Now
@@ -387,24 +441,40 @@ function Jobs() {
                   {/* Pagination */}
                   {filteredJobs.length > 0 && (
                     <nav aria-label="Page navigation" className="mt-4">
-                      <ul className="pagination justify-content-center" style={{ background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderRadius: '12px', padding: '0.5rem 1.5rem', border: '1px solid rgba(255,255,255,0.08)' }}>
+                      <ul
+                        className="pagination justify-content-center"
+                        style={{
+                          background: "rgba(0,0,0,0.35)",
+                          backdropFilter: "blur(12px)",
+                          WebkitBackdropFilter: "blur(12px)",
+                          borderRadius: "12px",
+                          padding: "0.5rem 1.5rem",
+                          border: "1px solid rgba(255,255,255,0.08)",
+                        }}
+                      >
                         {[1, 2].map((pageNum) => (
                           <li
                             key={pageNum}
-                            className={`page-item ${currentPage === pageNum ? "active" : ""}`}
+                            className={`page-item ${
+                              currentPage === pageNum ? "active" : ""
+                            }`}
                           >
                             <button
                               className="page-link"
                               style={{
-                                background: currentPage === pageNum ? 'rgba(34,197,94,0.95)' : 'transparent',
-                                color: currentPage === pageNum ? '#fff' : '#fff',
-                                border: 'none',
-                                borderRadius: '8px',
-                                margin: '0 0.5rem',
+                                background:
+                                  currentPage === pageNum
+                                    ? "rgba(34,197,94,0.95)"
+                                    : "transparent",
+                                color:
+                                  currentPage === pageNum ? "#fff" : "#fff",
+                                border: "none",
+                                borderRadius: "8px",
+                                margin: "0 0.5rem",
                                 fontWeight: 600,
-                                fontSize: '1.1rem',
-                                padding: '0.5rem 1.2rem',
-                                transition: 'background 0.2s',
+                                fontSize: "1.1rem",
+                                padding: "0.5rem 1.2rem",
+                                transition: "background 0.2s",
                               }}
                               onClick={() => handlePageChange(pageNum)}
                             >
@@ -425,4 +495,4 @@ function Jobs() {
   );
 }
 
-export default Jobs; 
+export default Jobs;

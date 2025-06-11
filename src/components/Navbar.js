@@ -151,6 +151,15 @@ function Navbar() {
               </li>
               <li
                 className={`nav-item ${
+                  location.pathname === "/jobs" ? "active" : ""
+                }  `}
+              >
+                <Link className="nav-link" to="/jobs">
+                  Jobs
+                </Link>
+              </li>
+              <li
+                className={`nav-item ${
                   location.pathname === `/${authUser?.username}` ? "active" : ""
                 }  `}
               >
@@ -161,15 +170,6 @@ function Navbar() {
                 ) : (
                   ""
                 )}
-              </li>
-              <li
-                className={`nav-item ${
-                  location.pathname === "/jobs" ? "active" : ""
-                }  `}
-              >
-                <Link className="nav-link" to="/jobs">
-                  Jobs
-                </Link>
               </li>
             </ul>
 
