@@ -102,12 +102,20 @@ function Profile() {
 
     setLoading(true);
     try {
+      // const res = await axios.post(
+      //   `http://localhost:4001/user/${username}/ai-feedback`,
+      //   {}
+      // );
+      // setFeedback(res.data);
       const res = await axios.post(
         `http://localhost:4001/user/${username}/ai-feedback`,
-        {}
+        {},
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
       );
-      toast.success("AI feedback Created Below!");
       setFeedback(res.data);
+      toast.success("AI feedback Created Below!");
     } catch (err) {
       console.error("AI feedback error:", err);
       const errorMessage = err.response?.data?.message || 
@@ -232,13 +240,7 @@ function Profile() {
           {authUser
             ? authUser.username === userData.username &&
               authUser &&
-              feedback && (
-                <Feedback
-                  lines={feedback.professional_feedback}
-                  rating={feedback.rating}
-                  missing_skills={feedback.missing_skills}
-                />
-              )
+              feedback && <Feedback feedback={feedback} />
             : ""}
           {/* About ******************************************** */}
           <div className="about col-xxl-8 p-4 ">

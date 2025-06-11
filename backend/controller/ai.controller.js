@@ -66,36 +66,32 @@ export const aiFeedback = async (req, res) => {
         role: "user",
         content: `Here is the user's portfolio data: ${portfolioText}
 
-Please respond with a JSON object that has the following fields:
+Please respond with a string that has the following :
 
-1. "professional_feedback": For each sentence or bullet in the portfolio that could be clearer, more concise, or more professional, output **only** your **rewritten** version of that sentence.  **Do not** repeat or restate sentences that are already clear and professional.  Provide your feedback from a field-agnostic perspective (assume the reader may come from any industry).
+1. professional_feedback: For each sentence or bullet in the portfolio that could be clearer (mention where that line is coming from - which experience,project, about etc), more concise, or more professional, output **only** your **rewritten** version of that sentence.  **Do not** repeat or restate sentences that are already clear and professional.  Provide your feedback from a field-agnostic perspective (assume the reader may come from any industry).
 
-2. "rating": A number between 1 and 10 (up to one decimal point) evaluating the overall strength of the portfolio.
+2. rating: A number between 1 and 10 (up to one decimal point) evaluating the overall strength of the portfolio.
 
 3. "missing_skills": An array of objects, each with:
     - "skill": the name of a skill they don't list but should consider.
     - "reason": a short sentence explanation of why they should learn it.
     - "courses": an array of up to 2-3 recommended online courses (by name + platform).
+    - Link: link to the course if possible
 
-Make sure to output exactly valid JSON—no extraneous text. Example output:
-\`\`\`json
-{
-  "professional_feedback": [
-    " XYZ line can be changed to Led a team of five to implement a new inventory system, increasing tracking accuracy by 30% because of XYZ reason",
+Make sure to output exactly valid string—no extraneous text. Example output:
+
+professional_feedback -
+    " XYZ line can be changed to Led a team of five to implement a new inventory system, increasing tracking accuracy by 30% because of XYZ reason"
     "XYZ line can be changed to Collaborated cross-functionally with marketing and design to roll out user-facing feature because of XYZ reason"
-  ],
-  "rating": 8,
-  "missing_skills": [
-    {
-      "skill": "Project Management",
-      "reason": "Formal PM skills help you plan, track, and deliver on time across industries.",
-      "courses": [
-        "Google Project Management Professional Certificate (Coursera)",
-        "Introduction to Project Management (edX)"
-      ]
-    }
-  ]
-}
+  
+rating - 8/10,
+
+missing_skills -
+  skill - "Project Management",
+  reason - "Formal PM skills help you plan, track, and deliver on time across industries.",
+  courses - 
+        "Google Project Management Professional Certificate (Coursera)" link if possible,
+        "Introduction to Project Management (edX) link if possible"
 `,
       },
     ];
@@ -153,7 +149,7 @@ Make sure to output exactly valid JSON—no extraneous text. Example output:
       });
     }
 
-    return res.status(200).json(parsed);
+    return res.status(200).send(assistantReply);
   } catch (err) {
     console.error("Server error in aiFeedback:", err);
     return res
