@@ -21,10 +21,13 @@ function Navbar() {
     const fetchCounts = async () => {
       try {
         const [recRes, userRes] = await Promise.all([
-          axios.get("http://localhost:4001/recommendations/getrec", {
-            params: { toUser: username, status: "pending" },
-          }),
-          axios.get(`http://localhost:4001/user/${username}`),
+          axios.get(
+            "https://pehcharm-backend.onrender.com/recommendations/getrec",
+            {
+              params: { toUser: username, status: "pending" },
+            }
+          ),
+          axios.get(`https://pehcharm-backend.onrender.com/user/${username}`),
         ]);
 
         const recCount = Array.isArray(recRes.data) ? recRes.data.length : 0;

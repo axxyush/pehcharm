@@ -9,10 +9,6 @@ function Jobs() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const jobsPerPage = 10;
-  // Filter state
-  const [showFilters, setShowFilters] = useState(false);
-  const [jobType, setJobType] = useState(""); // "Internship" or "Full time"
-  const [location, setLocation] = useState(""); // "US", "Canada", "Europe", "Asia"
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -50,37 +46,6 @@ function Jobs() {
       setLoading(false);
     }
   };
-
-  // Filtering logic
-  const getFilteredJobs = () => {
-    let filtered = jobs;
-    if (jobType) {
-      filtered = filtered.filter(
-        (job) =>
-          job.type && job.type.toLowerCase().includes(jobType.toLowerCase())
-      );
-    }
-    if (location) {
-      filtered = filtered.filter((job) => {
-        if (!job.location) return false;
-        if (location === "US")
-          return job.location.match(/\bUS|United States\b/i);
-        if (location === "Canada") return job.location.match(/\bCanada\b/i);
-        if (location === "Europe")
-          return job.location.match(
-            /Europe|Germany|France|UK|Italy|Spain|Netherlands|Sweden|Norway|Finland|Switzerland|Denmark|Belgium|Austria|Ireland|Portugal|Poland|Czech|Hungary|Romania|Greece|Bulgaria|Slovakia|Slovenia|Estonia|Latvia|Lithuania|Luxembourg|Croatia|Serbia|Ukraine|Russia/i
-          );
-        if (location === "Asia")
-          return job.location.match(
-            /Asia|India|China|Japan|Singapore|Hong Kong|Malaysia|Thailand|Vietnam|Indonesia|Philippines|Pakistan|Bangladesh|Sri Lanka|Nepal|South Korea|Taiwan|UAE|Saudi Arabia|Qatar|Kuwait|Oman|Israel|Turkey/i
-          );
-        return false;
-      });
-    }
-    return filtered;
-  };
-
-  const filteredJobs = getFilteredJobs();
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -148,25 +113,6 @@ function Jobs() {
                     outline: "none",
                   }}
                 />
-                {/* Filter Button */}
-                <button
-                  type="button"
-                  className="btn"
-                  style={{
-                    background: "rgba(255,255,255,0.08)",
-                    color: "#fff",
-                    fontWeight: 600,
-                    borderRadius: "8px",
-                    marginLeft: 16,
-                    padding: "0.5rem 1.5rem",
-                    fontSize: "1.1rem",
-                    border: "1px solid #22c55e",
-                    boxShadow: "0 2px 8px 0 rgba(34,197,94,0.10)",
-                  }}
-                  onClick={() => setShowFilters((prev) => !prev)}
-                >
-                  Filters
-                </button>
                 <button
                   type="submit"
                   className="btn"
@@ -185,139 +131,6 @@ function Jobs() {
                 >
                   Search
                 </button>
-                {/* Filter Dropdown */}
-                {showFilters && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "60px",
-                      right: "40px",
-                      zIndex: 10,
-                      background: "rgba(0,0,0,0.85)",
-                      color: "#fff",
-                      borderRadius: "14px",
-                      boxShadow: "0 4px 32px 0 rgba(0,0,0,0.25)",
-                      padding: "1.5rem",
-                      minWidth: "260px",
-                      border: "1px solid #22c55e",
-                      backdropFilter: "blur(12px)",
-                      WebkitBackdropFilter: "blur(12px)",
-                    }}
-                  >
-                    <div style={{ marginBottom: "1rem" }}>
-                      <label style={{ fontWeight: 600, color: "#22c55e" }}>
-                        Job Type
-                      </label>
-                      <div>
-                        <label style={{ marginRight: 16 }}>
-                          <input
-                            type="radio"
-                            name="jobType"
-                            value="Internship"
-                            checked={jobType === "Internship"}
-                            onChange={() => setJobType("Internship")}
-                          />{" "}
-                          Internship
-                        </label>
-                        <label>
-                          <input
-                            type="radio"
-                            name="jobType"
-                            value="Full time"
-                            checked={jobType === "Full time"}
-                            onChange={() => setJobType("Full time")}
-                          />{" "}
-                          Full time
-                        </label>
-                        <label style={{ marginLeft: 16 }}>
-                          <input
-                            type="radio"
-                            name="jobType"
-                            value=""
-                            checked={jobType === ""}
-                            onChange={() => setJobType("")}
-                          />{" "}
-                          Any
-                        </label>
-                      </div>
-                    </div>
-                    <div>
-                      <label style={{ fontWeight: 600, color: "#22c55e" }}>
-                        Location
-                      </label>
-                      <div>
-                        <label style={{ marginRight: 16 }}>
-                          <input
-                            type="radio"
-                            name="location"
-                            value="US"
-                            checked={location === "US"}
-                            onChange={() => setLocation("US")}
-                          />{" "}
-                          US
-                        </label>
-                        <label style={{ marginRight: 16 }}>
-                          <input
-                            type="radio"
-                            name="location"
-                            value="Canada"
-                            checked={location === "Canada"}
-                            onChange={() => setLocation("Canada")}
-                          />{" "}
-                          Canada
-                        </label>
-                        <label style={{ marginRight: 16 }}>
-                          <input
-                            type="radio"
-                            name="location"
-                            value="Europe"
-                            checked={location === "Europe"}
-                            onChange={() => setLocation("Europe")}
-                          />{" "}
-                          Europe
-                        </label>
-                        <label style={{ marginRight: 16 }}>
-                          <input
-                            type="radio"
-                            name="location"
-                            value="Asia"
-                            checked={location === "Asia"}
-                            onChange={() => setLocation("Asia")}
-                          />{" "}
-                          Asia
-                        </label>
-                        <label>
-                          <input
-                            type="radio"
-                            name="location"
-                            value=""
-                            checked={location === ""}
-                            onChange={() => setLocation("")}
-                          />{" "}
-                          Any
-                        </label>
-                      </div>
-                    </div>
-                    <div style={{ textAlign: "right", marginTop: "1.5rem" }}>
-                      <button
-                        className="btn"
-                        style={{
-                          background: "#22c55e",
-                          color: "#fff",
-                          fontWeight: 600,
-                          borderRadius: "8px",
-                          padding: "0.5rem 1.5rem",
-                          fontSize: "1.1rem",
-                          border: "none",
-                          boxShadow: "0 2px 8px 0 rgba(34,197,94,0.15)",
-                        }}
-                        onClick={() => setShowFilters(false)}
-                      >
-                        Done
-                      </button>
-                    </div>
-                  </div>
-                )}
               </form>
             </div>
 
@@ -327,7 +140,7 @@ function Jobs() {
                 <div className="text-center text-light">Loading...</div>
               ) : (
                 <>
-                  {filteredJobs
+                  {jobs
                     .slice((currentPage - 1) * 10, currentPage * 10)
                     .map((job) => (
                       <div
@@ -439,7 +252,7 @@ function Jobs() {
                     ))}
 
                   {/* Pagination */}
-                  {filteredJobs.length > 0 && (
+                  {jobs.length > 0 && (
                     <nav aria-label="Page navigation" className="mt-4">
                       <ul
                         className="pagination justify-content-center"

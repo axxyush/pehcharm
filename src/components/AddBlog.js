@@ -31,7 +31,7 @@ function AddBlog() {
 
     try {
       const res = await axios.post(
-        "http://localhost:4001/blogs/addblog",
+        "https://pehcharm-backend.onrender.com/blogs/addblog",
         blogInfo
       );
       if (res.data) {

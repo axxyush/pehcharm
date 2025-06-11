@@ -12,7 +12,7 @@ function Notifications() {
 
   React.useEffect(() => {
     axios
-      .get(`http://localhost:4001/recommendations/getrec`, {
+      .get(`https://pehcharm-backend.onrender.com/recommendations/getrec`, {
         params: { toUser: authUser.username, status: "pending" },
       })
       .then((res) => setRecs(res.data))
@@ -21,7 +21,7 @@ function Notifications() {
 
   React.useEffect(() => {
     axios
-      .get(`http://localhost:4001/user/${authUser.username}`)
+      .get(`https://pehcharm-backend.onrender.com/user/${authUser.username}`)
       .then((res) => {
         setViewers(res.data.viewers || []);
       })
@@ -30,9 +30,12 @@ function Notifications() {
 
   const updateRec = async (recId, show) => {
     try {
-      await axios.patch(`http://localhost:4001/recommendations/${recId}`, {
-        show,
-      });
+      await axios.patch(
+        `https://pehcharm-backend.onrender.com/recommendations/${recId}`,
+        {
+          show,
+        }
+      );
       // remove it from the pending list
       setRecs((rs) => rs.filter((r) => r._id !== recId));
 
@@ -49,7 +52,9 @@ function Notifications() {
 
   const deleteRec = async (recId) => {
     try {
-      await axios.delete(`http://localhost:4001/recommendations/${recId}`);
+      await axios.delete(
+        `https://pehcharm-backend.onrender.com/recommendations/${recId}`
+      );
       setRecs((rs) => rs.filter((r) => r._id !== recId));
       toast.success("Recommendation deleted successfully!");
       setTimeout(() => {
@@ -107,7 +112,7 @@ function Notifications() {
                   onClick={async () => {
                     try {
                       await axios.delete(
-                        `http://localhost:4001/user/${authUser.username}/viewers/${idx}`,
+                        `https://pehcharm-backend.onrender.com/user/${authUser.username}/viewers/${idx}`,
                         {
                           headers: {
                             Authorization: `Bearer ${localStorage.getItem(

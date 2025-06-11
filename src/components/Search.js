@@ -16,7 +16,7 @@ function Search() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:4001/user/${data.username}`
+        `https://pehcharm-backend.onrender.com/user/${data.username}`
       );
       console.log(response.data.username);
 
@@ -27,7 +27,7 @@ function Search() {
         ) {
           try {
             await axios.post(
-              `http://localhost:4001/user/${response.data.username}/viewers`,
+              `https://pehcharm-backend.onrender.com/user/${response.data.username}/viewers`,
               { viewer: authUser.username }
             );
           } catch (viewErr) {

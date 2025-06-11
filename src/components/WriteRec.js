@@ -17,11 +17,14 @@ export default function WriteRec(props) {
     }
     setLoading(true); // ← start spinner
     try {
-      await axios.post(`http://localhost:4001/recommendations/addrec`, {
-        content: message,
-        toUser: props.toUser,
-        fromUser: props.fromUser,
-      });
+      await axios.post(
+        `https://pehcharm-backend.onrender.com/recommendations/addrec`,
+        {
+          content: message,
+          toUser: props.toUser,
+          fromUser: props.fromUser,
+        }
+      );
       toast.success("Recommendation posted!");
       setMessage("");
       const modalEl = document.getElementById("recModal");

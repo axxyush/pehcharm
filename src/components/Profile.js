@@ -24,7 +24,7 @@ function Profile() {
   useEffect(() => {
     // Fetch user data from the backend
     axios
-      .get(`http://localhost:4001/user/${username}`)
+      .get(`https://pehcharm-backend.onrender.com/user/${username}`)
       .then((response) => {
         setUserData(response.data);
         setLoading(false);
@@ -53,7 +53,7 @@ function Profile() {
   useEffect(() => {
     if (!username) return;
     axios
-      .get("http://localhost:4001/recommendations/getrec", {
+      .get("https://pehcharm-backend.onrender.com/recommendations/getrec", {
         params: { toUser: username, status: "approved" },
       })
       .then((res) => setRecs(res.data))
@@ -66,10 +66,13 @@ function Profile() {
 
   const handleRequestRecommendation = async () => {
     try {
-      await axios.post("http://localhost:4001/recommendations/requestrec", {
-        toUser: userData.username,
-        fromUser: authUser.username,
-      });
+      await axios.post(
+        "https://pehcharm-backend.onrender.com/recommendations/requestrec",
+        {
+          toUser: userData.username,
+          fromUser: authUser.username,
+        }
+      );
       toast.success("Recommendation request sent!");
     } catch (err) {
       toast.error("Failed to send request");
@@ -103,12 +106,12 @@ function Profile() {
     setLoading(true);
     try {
       // const res = await axios.post(
-      //   `http://localhost:4001/user/${username}/ai-feedback`,
+      //   `https://pehcharm-backend.onrender.com/user/${username}/ai-feedback`,
       //   {}
       // );
       // setFeedback(res.data);
       const res = await axios.post(
-        `http://localhost:4001/user/${username}/ai-feedback`,
+        `https://pehcharm-backend.onrender.com/user/${username}/ai-feedback`,
         {},
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

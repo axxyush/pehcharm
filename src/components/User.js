@@ -82,7 +82,7 @@ function User() {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:4001/user/update",
+        "https://pehcharm-backend.onrender.com/user/update",
         data
       );
 
